@@ -1,0 +1,54 @@
+<html lang='es'>
+
+	<head>
+		<meta charset='UTF-8' />
+		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+		<link rel='icon' type='image/x-icon' href='/img/Logo.svg' />
+		<title>SHIPMATE</title>
+
+		{{! Styles }}
+		<link rel='stylesheet' href='styles/main.css' />
+	</head>
+
+	<body>
+		{{#if user}}
+			<nav>
+				<div class='logo-section'>
+					<img src='/img/Logo.svg' alt='logo' />
+					<a href='/' class='title'>SHIPMATE</a>
+				</div>
+				<div>
+					<div class='sec-center'>  {{!--? Agregar un hover????? --}}
+						<input class='dropdown' type='checkbox' id='dropdown' name='dropdown' />
+						<label class='for-dropdown' for='dropdown'>{{name}}
+							<img class='profile-picture' src='/img/default-profile.jpg' alt='' />
+							<img class='dropdown-arrow' src='/img/caret-right-solid.svg' alt='' />
+							<i class='uil uil-arrow-down'></i></label>
+						<div class='section-dropdown'>
+							<a href='#'>a <img src='/img/caret-right-solid.svg' alt='' /></a>
+							<a href='#'>d <img src='/img/caret-right-solid.svg' alt='' /></a>
+							<a href='#'>Cerrar Sesión <img src='/img/x-solid.svg' alt='' /></a>
+						</div>
+					</div>
+				</div>
+			</nav>
+		{{else}}
+			<nav>
+				<div class='logo-section'>
+					<img src='/img/Logo.svg' alt='logo' />
+					<a href='/' class='title'>SHIPMATE</a>
+				</div>
+				<div class='login-register-container'>
+					<a href='/signin' class='button-a'>Iniciar</a>
+					<a href='/signup' class='button-a'>Registrarse</a>
+				</div>
+			</nav>
+		{{/if}}
+		<main>
+			<div class='container'>
+				{{{body}}}
+			</div>
+		</main>
+	</body>
+
+</html>

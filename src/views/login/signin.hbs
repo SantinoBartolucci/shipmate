@@ -1,0 +1,31 @@
+<div class='wrapper'>
+	<h2>INICIO</h2>
+	<div class='form-box login'>
+		<form action='/signin' method='post'>
+			<div class='input-box'>
+				<img src='/img/user-solid.svg' alt='user img' />
+				<input type='text' name='name' required autofocus/>
+				<label>E-Mail</label>
+			</div>
+			<div class='input-box'>
+				<img
+					src='/img/lock-solid.svg'
+					class='lock'
+					id='lock1'
+					onclick='ToogleVisibility("password-inp1", "lock1")'
+					alt='closed lock img'
+				/>
+				<input type='password' name='password' id='password-inp1' required />
+				<label>Contraseña</label>
+			</div>
+			<button type='submit' class='btn'>Iniciar</button>
+			<div class='separator'>O</div>
+			<a href='/auth/google' class='google-sign-in-button'>
+				Inicia sesión con Google
+			</a>
+			<div class="redirect-a">
+				<a href='/signup'>¿Aún no tienes cuenta? Regístrate!</a>
+			</div>
+		</form>
+	</div>
+</div>

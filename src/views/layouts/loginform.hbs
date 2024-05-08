@@ -1,0 +1,34 @@
+<html lang='es'>
+
+	<head>
+		<meta charset='UTF-8' />
+		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+		<link rel='icon' type='image/x-icon' href='/img/Logo.svg' />
+		<title>SHIPMATE</title>
+
+		{{! Styles }}
+		<link rel='stylesheet' href='/styles/login.css' />
+		<link rel='stylesheet' href='/styles/partials.css' />
+	</head>
+
+	<body>
+		<nav>
+			<img src='/img/Logo.svg' alt='logo' />
+			<a href='/' class='title'>SHIPMATE</a>
+			<div class='extra'></div>
+		</nav>
+		<main>
+			<div class='container'>
+				<div class='background-images'>
+					<img class='background-world' src='/img/undraw_connected_world_wuay.svg' alt='' />
+				</div>
+				{{#if error_msg}}
+					{{> error }}
+				{{/if}}
+				{{{body}}}
+			</div>
+		</main>
+		<script src='/js/tooglePasswordVisibility.js'></script>
+	</body>
+
+</html>
