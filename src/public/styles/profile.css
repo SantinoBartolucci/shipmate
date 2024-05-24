@@ -1,0 +1,134 @@
+:root {
+	--darkblue: #1e1e2c;
+	--lightblue: #3b8ff3;
+	--greyblue: #cdd5d1;
+}
+
+.profile-wrapper {
+	margin-top: 50px;
+	width: 80%;
+	min-height: 600px;
+	border-radius: 20px;
+	background-color: white;
+	padding: 50px;
+}
+
+.personal-data-section {
+	width: 100%;
+	/* display: flex;
+    justify-content: space-between;
+    flex-direction: row; */
+}
+
+.personal-data-section .upper-section {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.personal-data-section h1 {
+	font-size: 4em;
+}
+
+.personal-data-section .desc {
+	margin-top: 10px;
+	font-size: 18px;
+}
+
+.big-profile-picture {
+	width: 250px;
+	height: 250px;
+	border-radius: 50%;
+}
+
+.profile-wrapper hr {
+	margin: 20px 0;
+}
+
+.rating-section {
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.rating-section p {
+	float: left;
+	font-size: 18px;
+}
+
+.rating-section fieldset,
+.rating-section label {
+	margin: 0;
+	padding: 0;
+}
+
+.rating-section fieldset {
+	display: inline-block;
+}
+
+/****** Style Star Rating Widget *****/
+
+.rating {
+	border: none;
+	float: left;
+}
+
+.rating > input {
+	display: none;
+}
+.rating > label:before {
+	margin: 5px;
+	font-size: 1.25em;
+	font-family: FontAwesome;
+	display: inline-block;
+	content: '\f005';
+}
+
+.rating > .half:before {
+	content: '\f089';
+	position: absolute;
+}
+
+.rating > label {
+	color: #ddd;
+	float: right;
+}
+
+/***** CSS Magic to Highlight Stars on Hover *****/
+
+/* Establece estilos solo cuando el input está habilitado */
+.rating-disabled > input:checked ~ label {
+    color: #ffd700;
+}
+
+.report-button {
+    display: block;
+	cursor: pointer;
+	transition: background-color 0.3s, box-shadow 0.3s;
+
+	width: 260px;
+	border: none;
+	border-radius: 3px;
+
+	background-color: red;
+	font-size: 14px;
+	font-weight: 500;
+}
+
+
+
+/*
+.rating-enabled > input:checked ~ label, /* show gold star when clicked 
+.rating-enabled:not(:checked) > label:hover, /* hover current star 
+.rating-enabled:not(:checked) > label:hover ~ label {
+	color: #ffd700;
+} /* hover previous stars in list 
+
+.rating-enabled > input:checked + label:hover, /* hover current star when changing rating 
+.rating-enabled > input:checked ~ label:hover,
+.rating-enabled > label:hover ~ input:checked ~ label, /* lighten current selection 
+.rating-enabled > input:checked ~ label:hover ~ label {
+	color: #ffed85;
+}
+*/

@@ -5,18 +5,19 @@ const router = Router();
 const pool = require('../database');
 const helper = require('../helpers/bcrypt');
 const nodeMailer = require('../helpers/nodeMailer');
-const { isNotLoggedIn } = require('../helpers/isLogged');
+const { isLoggedIn, isNotLoggedIn } = require('../helpers/isLogged');
 
 router.get('/signup', isNotLoggedIn, (req, res) => {
 	const { name, mail } = req.session;
-	res.render('login/signup', { layout: 'loginform', name: name, mail: mail });
+	res.render('pages/login/signup', { layout: 'loginform', name: name, mail: mail });
 });
 
 router.post('/signup', async (req, res, next) => {
 	const { name, mail, password, repeatPassword } = req.body;
 
+
 	req.session.name = name;
-	req.session.mail = mail;
+	req.session.mail = mail.toLowerCase();
 	req.session.password = password;
 
 	const user = await pool.query('SELECT name FROM usuario WHERE mail=?', [mail]);
@@ -40,8 +41,8 @@ router.get('/signup/emailconfirmation', async (req, res) => {
 
 	req.session.confirmationCode = confirmationCode;
 
-	res.render('login/emailconfirmation', { layout: 'loginform' });
-});	
+	res.render('pages/login/emailconfirmation', { layout: 'loginform' });
+});
 
 router.post('/signup/emailconfirmation', async (req, res) => {
 	const { confirmationCode } = req.body;
@@ -52,10 +53,12 @@ router.post('/signup/emailconfirmation', async (req, res) => {
 	req.session.confirmationCode = null;
 
 	if (confirmationCode == realCode) {
-		await pool.query(
-			'INSERT INTO usuario (name, mail, password) VALUES (?, ?, ?)',
-			[name, mail, encryptedPassword]
-		);
+		const Name = name.split(' ');
+		await pool.query('INSERT INTO usuario (name, mail, password) VALUES (?, ?, ?)', [
+			Name,
+			mail,
+			encryptedPassword,
+		]);
 
 		res.redirect('/signin');
 	} else {
@@ -65,7 +68,7 @@ router.post('/signup/emailconfirmation', async (req, res) => {
 });
 
 router.get('/signin', isNotLoggedIn, (req, res) => {
-	res.render('login/signin', { layout: 'loginform' });
+	res.render('pages/login/signin', { layout: 'loginform' });
 });
 
 router.post(
@@ -76,7 +79,11 @@ router.post(
 	})
 );
 
-router.get('/auth/google', isNotLoggedIn, passport.authenticate('google', { scope: ['email', 'profile'] }));
+router.get(
+	'/auth/google',
+	isNotLoggedIn,
+	passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'select_account' })
+);
 
 router.get(
 	'/auth/google/callback',
@@ -85,5 +92,12 @@ router.get(
 		failureRedirect: 'signin',
 	})
 );
+
+router.get('/logOut', isLoggedIn, (req, res) => {
+	req.logout((err) => {
+		if (err) return next(err);
+		res.redirect('/');
+	});
+});
 
 module.exports = router;
