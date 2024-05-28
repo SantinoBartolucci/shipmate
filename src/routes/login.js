@@ -6,6 +6,7 @@ const pool = require('../database');
 const helper = require('../helpers/bcrypt');
 const nodeMailer = require('../helpers/nodeMailer');
 const { isLoggedIn, isNotLoggedIn } = require('../helpers/isLogged');
+const { TodayDate } = require('../helpers/date_related');
 
 router.get('/signup', isNotLoggedIn, (req, res) => {
 	const { name, mail } = req.session;
@@ -14,7 +15,6 @@ router.get('/signup', isNotLoggedIn, (req, res) => {
 
 router.post('/signup', async (req, res, next) => {
 	const { name, mail, password, repeatPassword } = req.body;
-
 
 	req.session.name = name;
 	req.session.mail = mail.toLowerCase();
@@ -48,16 +48,22 @@ router.post('/signup/emailconfirmation', async (req, res) => {
 	const { confirmationCode } = req.body;
 	const { name, mail, password } = req.session;
 	let encryptedPassword = await helper.encryptPassword(password);
+	const creation_date = TodayDate();
 
 	const realCode = req.session.confirmationCode;
 	req.session.confirmationCode = null;
 
 	if (confirmationCode == realCode) {
-		const Name = name.split(' ');
-		await pool.query('INSERT INTO usuario (name, mail, password) VALUES (?, ?, ?)', [
+		let Name = name.split(' ');
+		Name = Name[1] != undefined ? Name[0] + ' ' + Name[1].charAt(0) : Name[0];
+		const defaultImage = 'profile-pictures/default.jpg';
+
+		await pool.query('INSERT INTO usuario (name, mail, password, creation_date, profile_image_route) VALUES (?, ?, ?, ?, ?)', [
 			Name,
 			mail,
 			encryptedPassword,
+			creation_date,
+			defaultImage,
 		]);
 
 		res.redirect('/signin');
@@ -79,11 +85,7 @@ router.post(
 	})
 );
 
-router.get(
-	'/auth/google',
-	isNotLoggedIn,
-	passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'select_account' })
-);
+router.get('/auth/google', isNotLoggedIn, passport.authenticate('google', { scope: ['email', 'profile'], prompt: 'select_account' }));
 
 router.get(
 	'/auth/google/callback',

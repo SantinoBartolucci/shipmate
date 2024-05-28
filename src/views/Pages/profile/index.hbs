@@ -7,64 +7,59 @@
 				<div class='rating-section'>
 					<p>Calificación:</p>
 					<fieldset class='rating rating-disabled'>
-						<input disabled type='radio' id='star5' name='rating' value='5' /><label
+						<input disabled type='radio' name='profileRating' value='5' {{#ifeq profileRating 5}}checked{{/ifeq}} /><label
 							class='full'
 							for='star5'
-							title='Awesome - 5 stars'
 						></label>
-						<input disabled type='radio' id='star4half' name='rating' value='4 and a half' /><label
+						<input disabled type='radio' name='profileRating' value='4.5' {{#ifeq profileRating 4.5}}checked{{/ifeq}} /><label
 							class='half'
 							for='star4half'
-							title='Pretty good - 4.5 stars'
 						></label>
-						<input disabled type='radio' id='star4' name='rating' value='4' /><label
+						<input disabled type='radio' name='profileRating' value='4' {{#ifeq profileRating 4}}checked{{/ifeq}} /><label
 							class='full'
 							for='star4'
-							title='Pretty good - 4 stars'
 						></label>
-						<input disabled type='radio' id='star3half' name='rating' value='3 and a half' /><label
+						<input disabled type='radio' name='profileRating' value='3.5' {{#ifeq profileRating 3.5}}checked{{/ifeq}}/><label
 							class='half'
 							for='star3half'
-							title='Good - 3.5 stars'
 						></label>
-						<input disabled type='radio' id='star3' name='rating' value='3' /><label
+						<input disabled type='radio' name='profileRating' value='3' {{#ifeq profileRating 3}}checked{{/ifeq}} /><label
 							class='full'
 							for='star3'
-							title='Good - 3 stars'
 						></label>
-						<input disabled type='radio' id='star2half' name='rating' value='2 and a half' /><label
+						<input disabled type='radio' name='profileRating' value='2.5' {{#ifeq profileRating 2.5}}checked{{/ifeq}}/><label
 							class='half'
 							for='star2half'
-							title='Kinda bad - 2.5 stars'
 						></label>
-						<input disabled type='radio' id='star2' name='rating' value='2' /><label
+						<input disabled type='radio' name='profileRating' value='2' {{#ifeq profileRating 2}}checked{{/ifeq}} /><label
 							class='full'
 							for='star2'
-							title='Kinda bad - 2 stars'
 						></label>
-						<input disabled type='radio' id='star1half' name='rating' value='1 and a half' /><label
+						<input disabled type='radio' name='profileRating' value='1.5' {{#ifeq profileRating 1.5}}checked{{/ifeq}} /><label
 							class='half'
 							for='star1half'
-							title='Meh - 1.5 stars'
 						></label>
-						<input disabled type='radio' id='star1' name='rating' value='1' /><label
+						<input disabled type='radio' name='profileRating' value='1' {{#ifeq profileRating 1}}checked{{/ifeq}}/><label
 							class='full'
 							for='star1'
-							title='Meh - 1 star'
 						></label>
-						<input disabled type='radio' id='starhalf' name='rating' value='half' /><label
+						<input disabled type='radio' name='profileRating' value='0.5' {{#ifeq profileRating 0.5}}checked{{/ifeq}}/><label
 							class='half'
 							for='starhalf'
-							title='Poopoo - 0.5 stars'
 						></label>
 					</fieldset>
 				</div>
-				<a class="report-button">
-					<p>Reportar Usuario</p>
-				</a>
-				{{!-- <a class="edit-profile">
-
-				</a> --}}
+				{{#if isOwner}}
+					<a class='edit-profile profile-button'>
+						<i class='fa-solid fa-pen-to-square'></i>
+						<p>Editar Perfil</p>
+					</a>
+				{{else}}
+					<a class='report-button profile-button'>
+						<i class='fa-solid fa-circle-exclamation'></i>
+						<p>Reportar Usuario</p>
+					</a>
+				{{/if}}
 			</div>
 			<div>
 				<img class='big-profile-picture' src='/img/default-profile.jpg' alt='' />
@@ -73,5 +68,68 @@
 	</div>
 	<hr />
 	<div class='reviews-section'>
+		{{#if reviews}}
+			{{#each reviews}}
+				<div class='review'>
+					<div class='review-upper-section'>
+						<img src='/img/default-profile.jpg' alt='profile-picture-another-user' />
+						<div class='name-product-holder'>
+							<p class='review-name'>{{this.name}}</p>
+							<p class='review-product'>{{this.product}}</p>
+						</div>
+					</div>
+					<div class='review-content-holder'>
+						<p>{{this.content}}</p>
+					</div>
+					<div class="review-footer">
+						<p>{{this.date}}{{this.rating}}</p>
+						<fieldset class='rating rating-disabled'>
+							<input disabled type='radio' name={{this.id}} value='5' {{#ifeq this.rating 5}}checked{{/ifeq}} /><label
+								class='full'
+								for='star5'
+							></label>
+							<input disabled type='radio' name={{this.id}} value='4.5' {{#ifeq this.rating 4.5}}checked{{/ifeq}} /><label
+								class='half'
+								for='star4half'
+							></label>
+							<input disabled type='radio' name={{this.id}} value='4' {{#ifeq this.rating 4}}checked{{/ifeq}} /><label
+								class='full'
+								for='star4'
+							></label>
+							<input disabled type='radio' name={{this.id}} value='3.5' {{#ifeq this.rating 3.5}}checked{{/ifeq}} /><label
+								class='half'
+								for='star3half'
+							></label>
+							<input disabled type='radio' name={{this.id}} value='3' {{#ifeq this.rating 3}}checked{{/ifeq}} /><label
+								class='full'
+								for='star3'
+							></label>
+							<input disabled type='radio' name={{this.id}} value='2.5' {{#ifeq this.rating 2.5}}checked{{/ifeq}} /><label
+								class='half'
+								for='star2half'
+							></label>
+							<input disabled type='radio' name={{this.id}} value='2' {{#ifeq this.rating 2}}checked{{/ifeq}} /><label
+								class='full'
+								for='star2'
+							></label>
+							<input disabled type='radio' name={{this.id}} value='1.5' {{#ifeq this.rating 1.5}}checked{{/ifeq}} /><label
+								class='half'
+								for='star1half'
+							></label>
+							<input disabled type='radio' name={{this.id}} value='1' {{#ifeq this.rating 1}}checked{{/ifeq}}/><label
+								class='full'
+								for='star1'
+							></label>
+							<input disabled type='radio' name={{this.id}} value='0.5' {{#ifeq this.rating 0.5}}checked{{/ifeq}} /><label
+								class='half'
+								for='starhalf'
+
+							></label>
+						</fieldset>
+					</div>
+				</div>
+			{{/each}}
+		{{else}}
+		{{/if}}
 	</div>
 </div>

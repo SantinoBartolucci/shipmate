@@ -2,10 +2,10 @@ const { Router } = require('express');
 const router = Router();
 
 router.get('/', (req, res) => {
-	let name = null;
+	let user = null;
 	if (req.user)
-		name = req.user[0].name
-	res.render('index', { name });
+		user = req.user[0];
+	res.render('index', user);
 });
 
 module.exports = router;

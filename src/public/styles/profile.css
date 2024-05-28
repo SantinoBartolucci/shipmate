@@ -15,9 +15,6 @@
 
 .personal-data-section {
 	width: 100%;
-	/* display: flex;
-    justify-content: space-between;
-    flex-direction: row; */
 }
 
 .personal-data-section .upper-section {
@@ -72,11 +69,13 @@
 .rating {
 	border: none;
 	float: left;
+	position: relative;
 }
 
 .rating > input {
 	display: none;
 }
+
 .rating > label:before {
 	margin: 5px;
 	font-size: 1.25em;
@@ -88,36 +87,22 @@
 .rating > .half:before {
 	content: '\f089';
 	position: absolute;
+	top: 0;
+	left: 0;
 }
 
 .rating > label {
 	color: #ddd;
 	float: right;
+	position: relative;
+}
+
+/** Establece estilos solo cuando el input está habilitado */
+.rating-disabled > input:checked ~ label {
+	color: #ffd700;
 }
 
 /***** CSS Magic to Highlight Stars on Hover *****/
-
-/* Establece estilos solo cuando el input está habilitado */
-.rating-disabled > input:checked ~ label {
-    color: #ffd700;
-}
-
-.report-button {
-    display: block;
-	cursor: pointer;
-	transition: background-color 0.3s, box-shadow 0.3s;
-
-	width: 260px;
-	border: none;
-	border-radius: 3px;
-
-	background-color: red;
-	font-size: 14px;
-	font-weight: 500;
-}
-
-
-
 /*
 .rating-enabled > input:checked ~ label, /* show gold star when clicked 
 .rating-enabled:not(:checked) > label:hover, /* hover current star 
@@ -132,3 +117,116 @@
 	color: #ffed85;
 }
 */
+
+.profile-button {
+	display: flex;
+	align-items: center;
+	align-items: center;
+	cursor: pointer;
+	transition: background-color 0.5s;
+
+	width: 260px;
+	height: 40px;
+	border-radius: 3px;
+
+	background-color: transparent;
+	font-size: 20px;
+	font-weight: 500;
+	padding: 5px 5px 5px 10px;
+	margin-top: 20px;
+}
+
+.report-button {
+	color: red;
+	border: none;
+}
+
+.report-button:hover {
+	background-color: rgb(255, 0, 0, 0.1);
+}
+
+.profile-button p {
+	margin-left: 10px;
+}
+
+.edit-profile {
+	color: var(--lightblue);
+	border: 1px solid var(--lightblue);
+}
+
+.edit-profile:hover {
+	background-color: var(--lightblue);
+	color: white;
+}
+
+.reviews-section {
+	width: 100%;
+	height: 300px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	overflow-y: auto;
+}
+
+.review {
+	width: 90%;
+	background-color: #e0e5e2;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+.review:not(:first-of-type) {
+	margin-top: 30px;
+}
+
+.review-upper-section {
+	width: 100%;
+	display: flex;
+}
+
+.review-upper-section img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.review-upper-section .name-product-holder {
+	margin-left: 10px;
+}
+
+.review-upper-section .review-name {
+	color: black;
+	font-weight: 700;
+	font-size: 20px;
+}
+
+.review-upper-section .review-product {
+	color: black;
+	font-weight: 300;
+	font-size: 15px;
+}
+
+.review-content-holder {
+	margin: 20px 0;
+	color: black;
+	font-weight: 500;
+	font-size: 18px;
+}
+
+.review-footer {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	color: black;
+	font-weight: 300;
+	font-size: 15px;
+}
+.review-footer p {
+	color: black;
+	font-weight: 300;
+	font-size: 15px;
+}
+
+.review-footer .rating > label {
+	color: white;
+}

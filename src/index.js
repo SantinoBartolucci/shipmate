@@ -26,6 +26,14 @@ app.engine(
 			allowProtoPropertiesByDefault: true,
 			allowProtoMethodsByDefault: true,
 		},
+		helpers: {
+			ifeq: function(arg1, arg2, options) {
+				arg1 = parseFloat(arg1);
+				arg2 = parseFloat(arg2);
+
+				return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+			},
+		}
 	})
 );
 app.set('view engine', '.hbs');
