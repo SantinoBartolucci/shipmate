@@ -10,7 +10,7 @@
 		<link rel='stylesheet' href='/styles/main.css' />
 		<link rel='stylesheet' href='/styles/profile.css' />
 
-		<script src="https://kit.fontawesome.com/2040522002.js" crossorigin="anonymous"></script>
+		<script src='https://kit.fontawesome.com/2040522002.js' crossorigin='anonymous'></script>
 	</head>
 
 	<body>
@@ -21,14 +21,14 @@
 					<a href='/' class='title'>SHIPMATE</a>
 				</div>
 				<div>
-					<div class='sec-center'> 
+					<div class='sec-center'>
 						<input class='dropdown' type='checkbox' id='dropdown' name='dropdown' />
-						<label class='for-dropdown' for='dropdown'>{{name}}
-							<img class='profile-picture' src='/img/default-profile.jpg' alt='' />
+						<label class='for-dropdown' for='dropdown'>{{user.name}}
+							<img class='profile-picture' src='/img/{{user.profile_image_route}}' alt='' />
 							<img class='dropdown-arrow' src='/img/caret-right-solid.svg' alt='' />
 							<i class='uil uil-arrow-down'></i></label>
 						<div class='section-dropdown'>
-							<a href='/profile/{{this.id}}'>Mi Perfil <img src='/img/user-solid.svg' alt='' /></a>
+							<a href='/profile/{{user.id}}'>Mi Perfil <img src='/img/user-solid.svg' alt='' /></a>
 							<a href='#'>d <img src='/img/caret-right-solid.svg' alt='' /></a>
 							<a href='/logOut'>Cerrar Sesión <img src='/img/x-solid.svg' alt='' /></a>
 						</div>

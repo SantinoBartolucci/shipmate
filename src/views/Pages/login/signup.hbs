@@ -4,33 +4,21 @@
 		<form action='/signup' method='post'>
 			<div class='input-box'>
 				<img src='/img/user-solid.svg' alt='user img' />
-				<input type='text' name='name' value="{{name}}" required autofocus />
+				<input type='text' name='name' value='{{name}}' required autofocus />
 				<label>Usuario</label>
 			</div>
 			<div class='input-box'>
 				<img src='/img/envelope-solid.svg' alt='user img' />
-				<input type='email' name='mail' value="{{mail}}" required />
+				<input type='email' name='mail' value='{{mail}}' required />
 				<label>E-Mail</label>
 			</div>
 			<div class='input-box'>
-				<img
-					src='/img/lock-solid.svg'
-					class='lock'
-					id='lock1'
-					onclick='ToogleVisibility("password-inp1", "lock1")'
-					alt='closed lock img'
-				/>
+				<img src='/img/lock-solid.svg' class='lock' id='lock1' onclick='ToogleVisibility("password-inp1", "lock1")' alt='closed lock img' />
 				<input type='password' name='password' id='password-inp1' required />
 				<label>Contraseña</label>
 			</div>
 			<div class='input-box'>
-				<img
-					src='/img/lock-solid.svg'
-					class='lock'
-					id='lock2'
-					onclick='ToogleVisibility("password-inp2", "lock2")'
-					alt='closed lock img'
-				/>
+				<img src='/img/lock-solid.svg' class='lock' id='lock2' onclick='ToogleVisibility("password-inp2", "lock2")' alt='closed lock img' />
 				<input type='password' name='repeatPassword' id='password-inp2' required />
 				<label>Repetir Contraseña</label>
 			</div>
@@ -39,7 +27,7 @@
 			<a href='/auth/google' class='google-sign-in-button'>
 				Regístrate con Google
 			</a>
-			<div class="redirect-a">
+			<div class='redirect-a'>
 				<a href='/signin'>¿Ya tienes cuenta? Inicia sesion!</a>
 			</div>
 		</form>

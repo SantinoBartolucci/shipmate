@@ -16,7 +16,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-	const user = await pool.query('select id, name from usuario where id=?', [id]);
+	const user = await pool.query('select id, name, profile_image_route from usuario where id=?', [id]);
 	done(null, user);
 });
 
@@ -33,7 +33,7 @@ passport.use(
 			done(null, user);
 		} else {
 			let Name = profile.displayName.split(' ');
-			Name = (Name[1] != undefined ) ? Name[0] + " " + Name[1].charAt(0) : Name[0];
+			Name = Name[1] != undefined ? Name[0] + ' ' + Name[1].charAt(0) : Name[0];
 			const newUser = {
 				name: Name,
 				mail: profile.email,
@@ -41,10 +41,7 @@ passport.use(
 				creation_date: TodayDate(),
 			};
 
-			await pool.query(
-				'INSERT INTO usuario (name, mail, password, creation_date) VALUES (?, ?, ?, ?)',
-				[newUser.name, newUser.mail, newUser.password, newUser.creation_date]
-			);
+			await pool.query('INSERT INTO usuario (name, mail, password, creation_date) VALUES (?, ?, ?, ?)', [newUser.name, newUser.mail, newUser.password, newUser.creation_date]);
 
 			const user = await pool.query('SELECT id, name FROM usuario WHERE mail=?', [newUser.mail]);
 
@@ -56,20 +53,14 @@ passport.use(
 				const imagePath = `profile-pictures/${user[0].id}.jpg`;
 				fs.writeFileSync(path.join(__dirname, `../public/img/${imagePath}`), imageBuffer);
 
-				await pool.query('UPDATE usuario SET profile_image_route=? WHERE id=?', [
-					imagePath,
-					user[0].id,
-				]);
+				await pool.query('UPDATE usuario SET profile_image_route=? WHERE id=?', [imagePath, user[0].id]);
 
 				console.log('Imagen guardada exitosamente en el servidor');
 			} catch (e) {
 				console.error('Error al guardar la imagen en el servidor', e);
 
 				const defaultImage = 'profile-pictures/default.jpg';
-				await pool.query('UPDATE usuario SET profile_image_route=? WHERE id=?', [
-					defaultImage,
-					user[0].id,
-				]);
+				await pool.query('UPDATE usuario SET profile_image_route=? WHERE id=?', [defaultImage, user[0].id]);
 			}
 
 			done(null, user[0]);

@@ -2,8 +2,9 @@ const { Router } = require('express');
 const router = Router();
 
 const { DateToDayMonthAndYear, TodayDate } = require('../helpers/date_related');
+const { isLoggedIn } = require('../helpers/isLogged');
 
-router.get('/profile/:id', (req, res) => {
+router.get('/profile/:id', isLoggedIn, (req, res) => {
 	const user = req.user[0];
 	const profileId = req.params.id;
 	let userId,

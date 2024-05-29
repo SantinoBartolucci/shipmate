@@ -95,6 +95,43 @@ router.get(
 	})
 );
 
+//!!! Revisar Autenticacion necesaria para cada pagina
+
+router.get('/signup/forgot-password/', (req, res) => {
+	res.render('pages/login/forgot-password', { layout: 'loginform' });
+});
+
+router.post('/signup/forgot-password/', async (req, res) => {
+	const { email } = req.body;
+	const user = await pool.query('SELECT id FROM usuario WHERE mail=?', [email]);
+	const link = `http://localhost:3000/signup/password-recovery/${user[0].id}`;
+	await nodeMailer.SendPasswordRecoveryMail(email, link);
+
+	res.redirect('/signin');
+});
+
+router.get('/signup/password-recovery/:id', (req, res) => {
+	const id = req.params.id;
+
+	res.render('pages/login/password-recovery', { layout: 'loginform', id });
+});
+
+router.post('/signup/password-recovery/:id', async (req, res) => {
+	const id = req.params.id;
+	const { newPassword, repeatNewPassword } = req.body;
+
+	if (newPassword == repeatNewPassword) {
+		let encryptedPassword = await helper.encryptPassword(newPassword);
+		await pool.query('UPDATE usuario SET password=? WHERE id=?', [encryptedPassword, id]);
+
+		req.flash('success_msg', 'Contraseña actualizada exitosamente');
+		res.redirect('/signin');
+	} else {
+		req.flash('error_msg', 'Las contraseñas ingresadas no son iguales. Ingrese la contraseña nuevamente');
+		res.redirect(`/signup/password-recovery/${id}`);
+	}
+});
+
 router.get('/logOut', isLoggedIn, (req, res) => {
 	req.logout((err) => {
 		if (err) return next(err);

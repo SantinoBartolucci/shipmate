@@ -62,7 +62,7 @@
 				{{/if}}
 			</div>
 			<div>
-				<img class='big-profile-picture' src='/img/default-profile.jpg' alt='' />
+				<img class='big-profile-picture' src='/img/{{user.profile_image_route}}' alt='' />
 			</div>
 		</div>
 	</div>
@@ -82,7 +82,7 @@
 						<p>{{this.content}}</p>
 					</div>
 					<div class="review-footer">
-						<p>{{this.date}}{{this.rating}}</p>
+						<p>{{this.date}}</p>
 						<fieldset class='rating rating-disabled'>
 							<input disabled type='radio' name={{this.id}} value='5' {{#ifeq this.rating 5}}checked{{/ifeq}} /><label
 								class='full'
