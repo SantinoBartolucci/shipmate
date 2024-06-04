@@ -2,48 +2,48 @@
 	<div class='personal-data-section'>
 		<div class='upper-section'>
 			<div>
-				<h1>{{name}}</h1>
-				<p class='desc'>Me uní en Mayo de 2024</p>
+				<h1>{{ requestedUser.name }}</h1>
+				<p class='desc'> {{	requestedUser.creation_date }} </p>
 				<div class='rating-section'>
 					<p>Calificación:</p>
 					<fieldset class='rating rating-disabled'>
-						<input disabled type='radio' name='profileRating' value='5' {{#ifeq profileRating 5}}checked{{/ifeq}} /><label
+						<input disabled type='radio' name='profileRating' value='5' {{#ifeq requestedUser.profileRating 5}}checked{{/ifeq}} /><label
 							class='full'
 							for='star5'
 						></label>
-						<input disabled type='radio' name='profileRating' value='4.5' {{#ifeq profileRating 4.5}}checked{{/ifeq}} /><label
+						<input disabled type='radio' name='profileRating' value='4.5' {{#ifeq requestedUser.profileRating 4.5}}checked{{/ifeq}} /><label
 							class='half'
 							for='star4half'
 						></label>
-						<input disabled type='radio' name='profileRating' value='4' {{#ifeq profileRating 4}}checked{{/ifeq}} /><label
+						<input disabled type='radio' name='profileRating' value='4' {{#ifeq requestedUser.profileRating 4}}checked{{/ifeq}} /><label
 							class='full'
 							for='star4'
 						></label>
-						<input disabled type='radio' name='profileRating' value='3.5' {{#ifeq profileRating 3.5}}checked{{/ifeq}}/><label
+						<input disabled type='radio' name='profileRating' value='3.5' {{#ifeq requestedUser.profileRating 3.5}}checked{{/ifeq}}/><label
 							class='half'
 							for='star3half'
 						></label>
-						<input disabled type='radio' name='profileRating' value='3' {{#ifeq profileRating 3}}checked{{/ifeq}} /><label
+						<input disabled type='radio' name='profileRating' value='3' {{#ifeq requestedUser.profileRating 3}}checked{{/ifeq}} /><label
 							class='full'
 							for='star3'
 						></label>
-						<input disabled type='radio' name='profileRating' value='2.5' {{#ifeq profileRating 2.5}}checked{{/ifeq}}/><label
+						<input disabled type='radio' name='profileRating' value='2.5' {{#ifeq requestedUser.profileRating 2.5}}checked{{/ifeq}}/><label
 							class='half'
 							for='star2half'
 						></label>
-						<input disabled type='radio' name='profileRating' value='2' {{#ifeq profileRating 2}}checked{{/ifeq}} /><label
+						<input disabled type='radio' name='profileRating' value='2' {{#ifeq requestedUser.profileRating 2}}checked{{/ifeq}} /><label
 							class='full'
 							for='star2'
 						></label>
-						<input disabled type='radio' name='profileRating' value='1.5' {{#ifeq profileRating 1.5}}checked{{/ifeq}} /><label
+						<input disabled type='radio' name='profileRating' value='1.5' {{#ifeq requestedUser.profileRating 1.5}}checked{{/ifeq}} /><label
 							class='half'
 							for='star1half'
 						></label>
-						<input disabled type='radio' name='profileRating' value='1' {{#ifeq profileRating 1}}checked{{/ifeq}}/><label
+						<input disabled type='radio' name='profileRating' value='1' {{#ifeq requestedUser.profileRating 1}}checked{{/ifeq}}/><label
 							class='full'
 							for='star1'
 						></label>
-						<input disabled type='radio' name='profileRating' value='0.5' {{#ifeq profileRating 0.5}}checked{{/ifeq}}/><label
+						<input disabled type='radio' name='profileRating' value='0.5' {{#ifeq requestedUser.profileRating 0.5}}checked{{/ifeq}}/><label
 							class='half'
 							for='starhalf'
 						></label>
@@ -62,7 +62,7 @@
 				{{/if}}
 			</div>
 			<div>
-				<img class='big-profile-picture' src='/img/{{user.profile_image_route}}' alt='' />
+				<img class='big-profile-picture' src='/img/{{ requestedUser.profile_image_route }}' alt='' />
 			</div>
 		</div>
 	</div>
@@ -72,10 +72,10 @@
 			{{#each reviews}}
 				<div class='review'>
 					<div class='review-upper-section'>
-						<img src='/img/default-profile.jpg' alt='profile-picture-another-user' />
+						<img src='/img/{{ this.reviewer_profile_image_route }}' alt='profile-picture-another-user' />
 						<div class='name-product-holder'>
-							<p class='review-name'>{{this.name}}</p>
-							<p class='review-product'>{{this.product}}</p>
+							<p class='review-name'>{{ this.reviewerName }}</p>
+							<p class='review-product'>{{ this.product }}</p>
 						</div>
 					</div>
 					<div class='review-content-holder'>

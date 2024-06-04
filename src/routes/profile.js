@@ -1,38 +1,60 @@
 const { Router } = require('express');
 const router = Router();
 
-const { DateToDayMonthAndYear, TodayDate } = require('../helpers/date_related');
+const pool = require('../database');
+const { DateToDayMonthAndYear, DateToMonthAndYear } = require('../helpers/date_related');
 const { isLoggedIn } = require('../helpers/isLogged');
 
-router.get('/profile/:id', isLoggedIn, (req, res) => {
+router.get('/profile/:id', isLoggedIn, async (req, res) => {
 	const user = req.user[0];
-	const profileId = req.params.id;
-	let userId,
-		name = 'Santino';
-	const creation_date = TodayDate(); //TODO? Buscar en la base de datos segun el id
-	const isOwner = true; //If id found in DB is equal to req.user[0].id
-	const profileRating = 3;
+	const userByParams = await getUserInfo(parseInt(req.params.id));
 
-	const reviews = [
-		{
-			id: 1,
-			name: 'Whitus',
-			product: 'Celular 12931293',
-			content: 'Todo Super! Gracias Niggus!',
-			date: DateToDayMonthAndYear(creation_date),
-			rating: 2,
-		},
-		{
-			id: 2,
-			name: 'Blancus',
-			product: 'Pantalon jasduwlaiw',
-			content: 'Todo Super! Gracias Niggus!',
-			date: DateToDayMonthAndYear(creation_date),
-			rating: 3.5,
-		},
-	];
+	const requestedUser = {
+		id: parseInt(req.params.id),
+		name: userByParams.name,
+		profile_image_route: userByParams.profile_image_route,
+		creation_date: `Me uní en ${DateToMonthAndYear(userByParams.creation_date)}`,
+		profileRating: userByParams.rating,
+	};
 
-	res.render('pages/profile/index', { user, name, creation_date, isOwner, profileRating, reviews });
+	const isOwner = user.id == requestedUser.id ? true : false;
+
+	const reviewsFromDB = await getReviews(requestedUser.id);
+
+	const reviews = await Promise.all(
+		reviewsFromDB.map(async (element) => {
+			const reviewer = await getUserInfo(element.id_reviewer);
+
+			return {
+				id: element.id,
+				id_reviewer: element.id_reviewer,
+				id_reviewed: element.id_reviewed,
+				product: element.product,
+				content: element.content,
+				date: DateToDayMonthAndYear(element.date),
+				rating: element.rating,
+				reviewerName: reviewer.name,
+				reviewer_profile_image_route: reviewer.profile_image_route,
+			};
+		})
+	);
+
+	res.render('pages/profile/index', {
+		requestedUser,
+		user,
+		isOwner,
+		reviews,
+	});
 });
+
+async function getUserInfo(id) {
+	const ans = await pool.query('select * from usuario where id = ? ', [id]);
+	return ans[0];
+}
+
+async function getReviews(id) {
+	const ans = await pool.query('select * from reseñas where id_reviewed = ?', [id]);
+	return ans;
+}
 
 module.exports = router;

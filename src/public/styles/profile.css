@@ -45,12 +45,11 @@
 .rating-section {
 	margin-top: 20px;
 	display: flex;
-	justify-content: center;
 	align-items: center;
 }
 
 .rating-section p {
-	float: left;
+	/* float: left; */
 	font-size: 18px;
 }
 
