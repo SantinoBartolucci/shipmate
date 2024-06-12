@@ -18,8 +18,10 @@ pool.getConnection((err, connection) => {
         }
     }
 
-    if (connection) connection.release();
-    console.log('DB conected sucesfully');
+    if (connection) {
+        connection.release();
+        console.log('DB conected sucesfully');
+    } 
     return;
 });
 

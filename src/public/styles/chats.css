@@ -11,6 +11,14 @@
 	--darkblue: #1e1e2c;
 	--lightblue: #3b8ff3;
 	--greyblue: #cdd5d1;
+	--white: #fff;
+	--black: #000;
+	--bg: #f8f8f8;
+	--grey: #999;
+	--dark: #1a1a1a;
+	--light: #e6e6e6;
+	--wrapper: 1000px;
+	--blue: #00b0ff;
 }
 
 .chats-wrapper {
@@ -24,20 +32,20 @@
 .chats-contacts-section {
 	width: 25%;
 	height: 100%;
-    padding: 15px;
+	padding: 15px;
 }
 
 .chats-contacts-section-wrapper {
-    height: 100%;
-    width: 100%;
-    overflow-y: auto;
-    background-color: #d6dbd8;
-    border-radius: 10px;
+	height: 100%;
+	width: 100%;
+	overflow-y: auto;
+	background-color: #d6dbd8;
+	border-radius: 10px;
 }
 
 .chats-contact {
 	width: 100%;
-	height: 10%;
+	height: 12.5%;
 	padding: 10px;
 	text-align: left;
 	cursor: pointer;
@@ -64,6 +72,7 @@
 .chats-contact hr {
 	width: 100%;
 	margin-top: 5px;
+	pointer-events: none;
 }
 
 .chats-contact:hover {
@@ -91,7 +100,7 @@
 	border-radius: 10px;
 	margin-top: 10px;
 	display: flex;
-    justify-content: space-between;
+	justify-content: space-between;
 }
 
 .chats-chat-input {
@@ -122,8 +131,8 @@
 .chats-chat-submit {
 	width: 7%;
 	height: 100%;
-    display: flex;
-    justify-content: right;
+	display: flex;
+	justify-content: right;
 }
 
 .chats-chat-submit input {
@@ -147,27 +156,159 @@
 }
 
 .chats-chat-messages-header {
-    width: 100%;
-    height: 9%;
-    padding: auto 0;
-    background-color: #d6dbd8;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    padding: 5px 15px 5px 15px;
+	width: 100%;
+	height: 9%;
+	padding: auto 0;
+	background-color: #d6dbd8;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	padding: 5px 15px 5px 15px;
 }
 
 .chats-chat-messages-header div {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .chats-chat-messages-header h1 {
-    font-size: 1.5em;
+	font-size: 1.5em;
 }
 
 .chats-chat-messages-header img {
-    width: 25px;
-    height: 25px;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.chats-chat-messages-header .gear {
+	width: 25px;
+	height: 25px;
+}
+
+.chats-chat-messages-container {
+	width: 100%;
+	height: 91%;
+	padding: 20px;
+}
+
+.conversation-start {
+	position: relative;
+	width: 100%;
+	margin-bottom: 27px;
+	text-align: center;
+}
+
+.conversation-start span {
+	font-size: 14px;
+	display: inline-block;
+	color: var(--grey);
+}
+
+.conversation-start span::before,
+.conversation-start span::after {
+	position: absolute;
+	top: 10px;
+	display: inline-block;
+	width: 30%;
+	height: 1px;
+	content: '';
+	background-color: var(--light);
+}
+
+.conversation-start span::before {
+	left: 0;
+}
+.conversation-start span::after {
+	right: 0;
+}
+
+.bubble {
+	font-size: 16px;
+	position: relative;
+	display: inline-block;
+	clear: both;
+	margin-bottom: 8px;
+	padding: 13px 14px;
+	vertical-align: top;
+	border-radius: 5px;
+}
+
+.bubble::before {
+	position: absolute;
+	top: 19px;
+	display: block;
+	width: 8px;
+	height: 6px;
+	content: '\00a0';
+	transform: rotate(29deg) skew(-35deg);
+}
+
+.you {
+	float: left;
+	color: var(--white);
+	background-color: var(--blue);
+	align-self: flex-start;
+	animation-name: slideFromLeft;
+}
+
+.you::before {
+	left: -3px;
+	background-color: var(--blue);
+}
+
+.me {
+	float: right;
+	color: var(--dark);
+	background-color: #eceff1;
+	align-self: flex-end;
+	animation-name: slideFromRight;
+}
+
+.me::before {
+	right: -3px;
+	background-color: #eceff1;
+}
+
+@keyframes slideFromLeft {
+	0% {
+		margin-left: -200px;
+		opacity: 0;
+	}
+	100% {
+		margin-left: 0;
+		opacity: 1;
+	}
+}
+@-webkit-keyframes slideFromLeft {
+	0% {
+		margin-left: -200px;
+		opacity: 0;
+	}
+	100% {
+		margin-left: 0;
+		opacity: 1;
+	}
+}
+@keyframes slideFromRight {
+	0% {
+		margin-right: -200px;
+		opacity: 0;
+	}
+	100% {
+		margin-right: 0;
+		opacity: 1;
+	}
+}
+@-webkit-keyframes slideFromRight {
+	0% {
+		margin-right: -200px;
+		opacity: 0;
+	}
+	100% {
+		margin-right: 0;
+		opacity: 1;
+	}
 }

@@ -1,0 +1,32 @@
+<div class='viajes-container'>
+	<div class='viajes-wrapper'>
+		<div class='viajes-image-container'>
+			<img src='/img/PlaneTowers.svg' alt='' />
+		</div>
+		<div class='viajes-form-container'>
+			<form action=''>
+				<h1>¡Programa Tus Viajes!</h1>
+				<div class='viajes-input-radio-container'>
+					<label class='left checked'>
+						<input type='radio' name='option' value='ida' checked onclick='ToogleCheckedRadioLabel()' />
+						Solo Ida
+					</label>
+					<label class='right'>
+						<input type='radio' name='option' value='ida-vuelta' onclick='ToogleCheckedRadioLabel()' />
+						Ida y Vuelta
+					</label>
+				</div>
+				<div class='viajes-input-container'>
+					<input type='text' placeholder='Viaje Desde' />
+				</div>
+				<div class='viajes-input-container'>
+					<input type='text' placeholder='Viaje Hacia' />
+				</div>
+				<div class='viajes-input-container'>
+					<input type='date' placeholder='Fecha de Viaje' />
+				</div>
+				<input class='viajes-input-submit' type='submit' value='Registrar Viaje' />
+			</form>
+		</div>
+	</div>
+</div>

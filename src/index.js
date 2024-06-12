@@ -4,6 +4,8 @@ const { engine } = require('express-handlebars');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash'); //Mensajes FLash
+const { createServer } = require('node:http');
+const { Server } = require('socket.io');
 
 //Initializations
 const app = express();
@@ -27,13 +29,13 @@ app.engine(
 			allowProtoMethodsByDefault: true,
 		},
 		helpers: {
-			ifeq: function(arg1, arg2, options) {
+			ifeq: function (arg1, arg2, options) {
 				arg1 = parseFloat(arg1);
 				arg2 = parseFloat(arg2);
 
-				return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+				return arg1 == arg2 ? options.fn(this) : options.inverse(this);
 			},
-		}
+		},
 	})
 );
 app.set('view engine', '.hbs');
@@ -60,16 +62,84 @@ app.use((req, res, next) => {
 	next();
 });
 
+const server = createServer(app);
+const io = new Server(server);
+const pool = require('./database');
+
+io.on('connection', (socket) => {
+	console.log('user connected');
+	socket.on('disconnect', () => {
+		console.log('user disconnected');
+	});
+	socket.on('chat message', async (msg, user, chatId) => {
+		const ans = await pool.query('insert into messages (chat_id, content, sender) values (?,?,?)', [chatId, msg, user]);
+		const username = await pool.query('select name from usuario where id = ?', [user]);
+		io.emit('chat message', msg, user, chatId, username);
+	});
+	socket.on('create chat', async (sender, receiver, chatId) => {
+		const ans = await pool.query('insert into chats (name) values (?)', [sender]);
+		let chat = ans.insertId;
+		if (ans) {
+			let res = await pool.query('INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)', [chat, sender]);
+			await pool.query('INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)', [chat, receiver]);
+			const chatName = await pool.query('SELECT name FROM chats WHERE id = ?', [chat]);
+			if (res) io.emit('create chat', sender, receiver, chat, chatName);
+			else console.log(-1);
+		} else return;
+	});
+	socket.on('load chat', async (req, chatId) => {
+		const ans = await pool.query('SELECT content, sender FROM messages WHERE chat_id = ?', [chatId]);
+		var users = {
+			sender: {
+				username: '',
+				id: '',
+			},
+			receiver: {
+				username: '',
+				id: '',
+			},
+		};
+		var a;
+		for (let i = 0; i < ans.length; i++) {
+			if (i == 0) {
+				let res = await pool.query('SELECT name FROM usuario WHERE id = ?', [ans[i].sender]);
+				users.sender.username = res[0].name;
+				users.sender.id = ans[0].sender;
+				a = ans[i].sender;
+			}
+			if (ans[i].sender != a) {
+				let res = await pool.query('SELECT name FROM usuario WHERE id = ?', [ans[i].sender]);
+				users.receiver.username = res[0].name;
+				users.receiver.id = ans[i].sender;
+				i = ans.length;
+			}
+		}
+		if (ans) {
+			io.emit('load chat', ans, chatId, users);
+		} else return;
+	});
+	socket.on('load chats', async (req, userId) => {
+		const ans = await pool.query('SELECT chat_id FROM chat_members WHERE user_id = ?', [userId]);
+		const names = await pool.query('SELECT name, id FROM chats ');
+		io.emit('load chats', ans, userId, names);
+	});
+});
+
 //Routes
 app.use(require('./routes/index'));
 app.use(require('./routes/login'));
 app.use(require('./routes/profile'));
 app.use(require('./routes/chats'));
+app.use(require('./routes/viajes'));
 
 //Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Server Initialization
-app.listen(app.get('port'), () => {
+// app.listen(app.get('port'), () => {
+// 	console.log(`Server on port ${app.get('port')} on http://localhost:${app.get('port')}`);
+// });
+
+server.listen(app.get('port'), () => {
 	console.log(`Server on port ${app.get('port')} on http://localhost:${app.get('port')}`);
 });
