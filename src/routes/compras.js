@@ -3,10 +3,10 @@ const router = Router();
 
 const { isLoggedIn } = require('../helpers/isLogged');
 
-router.get('/viajar', isLoggedIn, (req, res) => {
+router.get('/comprar', isLoggedIn, (req, res) => {
 	const user = req.user[0];
 
-	res.render('pages/viajes/viajar', { user });
+	res.render('pages/compras/comprar', { user });
 });
 
 module.exports = router;

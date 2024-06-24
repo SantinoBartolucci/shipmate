@@ -4,7 +4,7 @@
 			<img src='/img/PlaneTowers.svg' alt='' />
 		</div>
 		<div class='viajes-form-container'>
-			<form action=''>
+			<form action='' id="form-viajes">
 				<h1>¡Programa Tus Viajes!</h1>
 				<div class='viajes-input-radio-container'>
 					<label class='left checked'>
@@ -12,18 +12,18 @@
 						Solo Ida
 					</label>
 					<label class='right'>
-						<input type='radio' name='option' value='ida-vuelta' onclick='ToogleCheckedRadioLabel()' />
+						<input type='radio' name='option' value='ida-vuelta' id="ida-vuelta" onclick='ToogleCheckedRadioLabel()' />
 						Ida y Vuelta
 					</label>
 				</div>
 				<div class='viajes-input-container'>
-					<input type='text' placeholder='Viaje Desde' />
+					<input type='text' placeholder='Desde' />
+				</div>
+				<div class='viajes-input-container' id="fechaIdaDiv">
+					<input type='text' placeholder='Hacia' />
 				</div>
 				<div class='viajes-input-container'>
-					<input type='text' placeholder='Viaje Hacia' />
-				</div>
-				<div class='viajes-input-container'>
-					<input type='date' placeholder='Fecha de Viaje' />
+					<input type='text' placeholder='Fecha de Ida' id="fecha-ida" onfocus="(this.type='date')" onblur="(this.type='text')"/>
 				</div>
 				<input class='viajes-input-submit' type='submit' value='Registrar Viaje' />
 			</form>
