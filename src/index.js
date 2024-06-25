@@ -65,6 +65,8 @@ app.use((req, res, next) => {
 const server = createServer(app);
 const io = new Server(server);
 const pool = require('./database');
+const { profile } = require('console');
+const { connect } = require('http2');
 
 io.on('connection', (socket) => {
 	console.log('user connected');
@@ -72,7 +74,11 @@ io.on('connection', (socket) => {
 		console.log('user disconnected');
 	});
 	socket.on('chat message', async (msg, user, chatId) => {
-		const ans = await pool.query('insert into messages (chat_id, content, sender) values (?,?,?)', [chatId, msg, user]);
+		const ans = await pool.query('insert into messages (chat_id, content, sender) values (?,?,?)', [
+			chatId,
+			msg,
+			user,
+		]);
 		const username = await pool.query('select name from usuario where id = ?', [user]);
 		io.emit('chat message', msg, user, chatId, username);
 	});
@@ -80,40 +86,60 @@ io.on('connection', (socket) => {
 		const ans = await pool.query('insert into chats (name) values (?)', [sender]);
 		let chat = ans.insertId;
 		if (ans) {
-			let res = await pool.query('INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)', [chat, sender]);
-			await pool.query('INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)', [chat, receiver]);
+			let res = await pool.query('INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)', [
+				chat,
+				sender,
+			]);
+			await pool.query('INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)', [
+				chat,
+				receiver,
+			]);
 			const chatName = await pool.query('SELECT name FROM chats WHERE id = ?', [chat]);
 			if (res) io.emit('create chat', sender, receiver, chat, chatName);
 			else console.log(-1);
 		} else return;
 	});
 	socket.on('load chat', async (req, chatId) => {
-		const ans = await pool.query('SELECT content, sender FROM messages WHERE chat_id = ?', [chatId]);
+		console.log(chatId);
+		const ans = await pool.query('SELECT content, sender FROM messages WHERE chat_id = ?', [
+			chatId,
+		]);
+		//	console.log(ans);
 		var users = {
 			sender: {
 				username: '',
 				id: '',
+				profileImageRoute: '',
 			},
 			receiver: {
 				username: '',
 				id: '',
+				profileImageRoute: '',
 			},
 		};
 		var a;
 		for (let i = 0; i < ans.length; i++) {
 			if (i == 0) {
-				let res = await pool.query('SELECT name FROM usuario WHERE id = ?', [ans[i].sender]);
+				let res = await pool.query('SELECT name, profile_image_route FROM usuario WHERE id = ?', [
+					ans[i].sender,
+				]);
+				console.log(res);
 				users.sender.username = res[0].name;
 				users.sender.id = ans[0].sender;
+				users.sender.profileImageRoute = res[0].profile_image_route;
 				a = ans[i].sender;
 			}
 			if (ans[i].sender != a) {
-				let res = await pool.query('SELECT name FROM usuario WHERE id = ?', [ans[i].sender]);
+				let res = await pool.query('SELECT name, profile_image_route FROM usuario WHERE id = ?', [
+					ans[i].sender,
+				]);
 				users.receiver.username = res[0].name;
 				users.receiver.id = ans[i].sender;
+				users.receiver.profileImageRoute = res[0].profile_image_route;
 				i = ans.length;
 			}
 		}
+		//	console.log(users);
 		if (ans) {
 			io.emit('load chat', ans, chatId, users);
 		} else return;
@@ -131,6 +157,7 @@ app.use(require('./routes/login'));
 app.use(require('./routes/profile'));
 app.use(require('./routes/chats'));
 app.use(require('./routes/viajes'));
+app.use(require('./routes/compras'));
 
 //Static Files
 app.use(express.static(path.join(__dirname, 'public')));

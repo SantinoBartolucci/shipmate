@@ -1,4 +1,5 @@
 import { io } from 'https://cdn.socket.io/4.3.2/socket.io.esm.min.js';
+//import { route } from '../../routes';
 
 const socket = io();
 const messageForm = document.getElementById('message-form');
@@ -7,6 +8,7 @@ const messages = document.getElementById('messages-container');
 // const chatForm = document.getElementById('chat-form');
 // const chatInput = document.getElementById('chat-input');
 const users = document.getElementById('users-container');
+const header = document.querySelectorAll('.chats-chat-messages-header');
 const url = window.location.href;
 const urlSinQuery = url.split('?')[0];
 
@@ -76,7 +78,7 @@ socket.on('load chats', (ans, userId, names) => {
 			var name = 1;
 			for (let i = 0; i < ans.length; i++) {
 				for (let j = 0; j < names.length; j++) {
-					if ((names[j].id = ans[i].chat_id)) {
+					if (names[j].id == ans[i].chat_id) {
 						name = names[j].name;
 					}
 				}
@@ -116,7 +118,7 @@ messageForm.addEventListener('submit', (e) => {
 function ListenBtns() {
 	document.querySelectorAll('.chat-selector').forEach((boton) => {
 		boton.addEventListener('click', function (event) {
-            console.log(event);
+			console.log(event);
 			var id = event.target.id;
 			chatId = id;
 			console.log('actual chat is: ' + chatId);
@@ -129,6 +131,19 @@ var lastCharged = -1;
 function LoadMessages(chat, ans, users) {
 	var item = 1;
 	if (lastCharged != chat) {
+		const route =
+			users.sender.id == id ? users.receiver.profileImageRoute : users.sender.profileImageRoute;
+		const username = users.sender.id == id ? users.receiver.username : users.sender.username;
+
+		header[0].innerHTML = `
+			<div>
+				<div>
+					<img src='/img/${route}' alt='' />
+					<h1>${username}</h1>
+				</div>
+				<img class="gear" src='/img/gear-solid.svg' />
+			</div>
+		`;
 		messages.innerHTML = '';
 		console.log(lastCharged, chat);
 		for (let i = 0; i < ans.length; i++) {
