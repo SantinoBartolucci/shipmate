@@ -146,3 +146,23 @@
 	background-color: var(--lightblue);
 	color: white;
 }
+
+.comprar-confirmar-separado {
+	width: 85%;
+	margin: 5px 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.comprar-confirmar-textarea {
+	width: 85%;
+	resize: none;
+	/* border: 1px solid; */
+	border-radius: 10px;
+	padding: 10px;
+	height: 100px;
+}
+
+.comprar-confirmar-h2 {
+	margin-top: 20px;
+}
