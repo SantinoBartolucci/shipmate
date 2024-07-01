@@ -118,10 +118,9 @@ messageForm.addEventListener('submit', (e) => {
 function ListenBtns() {
 	document.querySelectorAll('.chat-selector').forEach((boton) => {
 		boton.addEventListener('click', function (event) {
-			console.log(event);
 			var id = event.target.id;
 			chatId = id;
-			console.log('actual chat is: ' + chatId);
+			//console.log('actual chat is: ' + chatId);
 			socket.emit('load chat', 1, chatId);
 		});
 	});
@@ -132,9 +131,12 @@ function LoadMessages(chat, ans, users) {
 	var item = 1;
 	if (lastCharged != chat) {
 		const route =
-			users.sender.id == id ? users.receiver.profileImageRoute : users.sender.profileImageRoute;
-		const username = users.sender.id == id ? users.receiver.username : users.sender.username;
-
+			users.sender.id == id
+				? users.receiver.profileImageRoute
+				: users.sender.profileImageRoute;
+		const username =
+			users.sender.id == id ? users.receiver.username : users.sender.username;
+		console.log(route + username);
 		header[0].innerHTML = `
 			<div>
 				<div>
@@ -145,7 +147,7 @@ function LoadMessages(chat, ans, users) {
 			</div>
 		`;
 		messages.innerHTML = '';
-		console.log(lastCharged, chat);
+		//console.log(lastCharged, chat);
 		for (let i = 0; i < ans.length; i++) {
 			if (ans[i].sender == id) {
 				item = `
