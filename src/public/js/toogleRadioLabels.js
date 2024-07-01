@@ -2,10 +2,16 @@ function ToogleCheckedRadioLabel() {
 	document.querySelectorAll('.viajes-input-radio-container label').forEach((label) => {
 		label.classList.remove('checked');
 	});
+	document.querySelectorAll('.compras-input-radio-container label').forEach((label) => {
+		label.classList.remove('checked');
+	});
+	document.querySelectorAll('.compras-input-radio-container input[type="radio"]:checked').forEach((radio) => {
+		radio.parentElement.classList.add('checked');
+	});
 
 	document.querySelectorAll('.viajes-input-radio-container input[type="radio"]:checked').forEach((radio) => {
 		radio.parentElement.classList.add('checked');
-		
+
 		if (radio.id == "ida-vuelta") {
 			if (!document.getElementById("fecha-ida-vuelta")) {
 				const div = document.createElement('div');
