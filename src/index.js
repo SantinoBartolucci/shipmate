@@ -104,7 +104,6 @@ io.on('connection', (socket) => {
 			else console.log(-1);
 		} else return;
 	});
-	socket.on('load chat', async (req, chatId) => {
 		const ans = await pool.query(
 			'SELECT content, sender FROM messages WHERE chat_id = ?',
 			[chatId]

@@ -1,0 +1,148 @@
+:root {
+	--darkblue: #1e1e2c;
+	--lightblue: #3b8ff3;
+	--greyblue: #cdd5d1;
+}
+
+.comprar-detalles-container {
+    width: 600px;
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 100px;
+}
+
+.comprar-detalles-wrapper {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+}
+
+.comprar-detalles-wrapper form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comprar-detalles-wrapper form h2 {
+    margin-bottom: 20px;
+}
+
+.compras-input-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px;
+}
+
+.compras-input-container input {
+	width: 400px;
+	height: 60px;
+	padding: 10px 20px;
+	border: 2px solid #ccc;
+	border-radius: 10px;
+	text-align: center;
+	font-size: 16px;
+	color: #888;
+	box-shadow: inset rgba(0, 0, 0, 0.5) 0px 0px 15px -12px;
+	outline: none;
+	transition: border-color 0.3s;
+}
+
+.compras-input-container input::placeholder {
+	color: #888;
+}
+
+.compras-input-container input:focus {
+	border-color: #999;
+}
+
+.two-inputs-div {
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.compras-two-input-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* margin: 20px; */
+}
+
+.compras-two-input-container input {
+    width: 175px;
+	height: 60px;
+	padding: 10px 20px;
+	border: 2px solid #ccc;
+	border-radius: 10px;
+	text-align: center;
+	font-size: 16px;
+	color: #888;
+	box-shadow: inset rgba(0, 0, 0, 0.5) 0px 0px 15px -12px;
+	outline: none;
+	transition: border-color 0.3s;
+}
+
+.compras-input-container-two {
+    display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px;
+}
+
+.compras-input-submit {
+    margin-top: 40px;
+    margin-bottom: -80px;
+    width: 400px;
+	height: 60px;
+	border-radius: 10px;
+	background-color: var(--lightblue);
+	color: white;
+	border: none;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+.compras-input-radio-container {
+	width: 400px;
+	height: 60px;
+	display: flex;
+	border-radius: 10px;
+	justify-content: center;
+	align-items: center;
+	margin: 20px 0;
+	box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.25);
+}
+
+.compras-input-radio-container input[type='radio'] {
+	display: none;
+}
+
+.compras-input-radio-container label {
+	width: 50%;
+	height: 100%;
+	padding: 10px 20px;
+	background-color: white;
+	cursor: pointer;
+	text-align: center;
+	user-select: none;
+	color: black;
+	transition: 0.3s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.compras-input-radio-container label.left {
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+.compras-input-radio-container label.right {
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.compras-input-radio-container label.checked {
+	background-color: var(--lightblue);
+	color: white;
+}
