@@ -65,6 +65,8 @@ app.use((req, res, next) => {
 const server = createServer(app);
 const io = new Server(server);
 const pool = require('./database');
+const { profile } = require('console');
+const { connect } = require('http2');
 
 io.on('connection', (socket) => {
 	console.log('user connected');
@@ -72,54 +74,92 @@ io.on('connection', (socket) => {
 		console.log('user disconnected');
 	});
 	socket.on('chat message', async (msg, user, chatId) => {
-		const ans = await pool.query('insert into messages (chat_id, content, sender) values (?,?,?)', [chatId, msg, user]);
-		const username = await pool.query('select name from usuario where id = ?', [user]);
+		const ans = await pool.query(
+			'insert into messages (chat_id, content, sender) values (?,?,?)',
+			[chatId, msg, user]
+		);
+		const username = await pool.query('select name from usuario where id = ?', [
+			user,
+		]);
 		io.emit('chat message', msg, user, chatId, username);
 	});
 	socket.on('create chat', async (sender, receiver, chatId) => {
-		const ans = await pool.query('insert into chats (name) values (?)', [sender]);
+		const ans = await pool.query('insert into chats (name) values (?)', [
+			sender,
+		]);
 		let chat = ans.insertId;
 		if (ans) {
-			let res = await pool.query('INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)', [chat, sender]);
-			await pool.query('INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)', [chat, receiver]);
-			const chatName = await pool.query('SELECT name FROM chats WHERE id = ?', [chat]);
+			let res = await pool.query(
+				'INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)',
+				[chat, sender]
+			);
+			await pool.query(
+				'INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)',
+				[chat, receiver]
+			);
+			const chatName = await pool.query('SELECT name FROM chats WHERE id = ?', [
+				chat,
+			]);
 			if (res) io.emit('create chat', sender, receiver, chat, chatName);
 			else console.log(-1);
 		} else return;
 	});
 	socket.on('load chat', async (req, chatId) => {
-		const ans = await pool.query('SELECT content, sender FROM messages WHERE chat_id = ?', [chatId]);
+		const ans = await pool.query(
+			'SELECT content, sender FROM messages WHERE chat_id = ?',
+			[chatId]
+		);
+		const user = await pool.query(
+			'SELECT id, user_id FROM chat_members WHERE chat_id = ?',
+			[chatId]
+		);
+		console.log(ans);
 		var users = {
 			sender: {
 				username: '',
 				id: '',
+				profileImageRoute: '',
 			},
 			receiver: {
 				username: '',
 				id: '',
+				profileImageRoute: '',
 			},
 		};
 		var a;
-		for (let i = 0; i < ans.length; i++) {
+		for (let i = 0; i < user.length; i++) {
 			if (i == 0) {
-				let res = await pool.query('SELECT name FROM usuario WHERE id = ?', [ans[i].sender]);
+				let res = await pool.query(
+					'SELECT name, profile_image_route FROM usuario WHERE id = ?',
+					[user[i].user_id]
+				);
+				//console.log(res);
 				users.sender.username = res[0].name;
-				users.sender.id = ans[0].sender;
-				a = ans[i].sender;
+				users.sender.id = user[i].user_id;
+				users.sender.profileImageRoute = res[0].profile_image_route;
+				a = user[i].user_id;
 			}
-			if (ans[i].sender != a) {
-				let res = await pool.query('SELECT name FROM usuario WHERE id = ?', [ans[i].sender]);
+			if (user[i].user_id != a) {
+				let res = await pool.query(
+					'SELECT name, profile_image_route FROM usuario WHERE id = ?',
+					[user[i].user_id]
+				);
 				users.receiver.username = res[0].name;
-				users.receiver.id = ans[i].sender;
+				users.receiver.id = user[i].user_id;
+				users.receiver.profileImageRoute = res[0].profile_image_route;
 				i = ans.length;
 			}
 		}
+		console.log(users);
 		if (ans) {
 			io.emit('load chat', ans, chatId, users);
 		} else return;
 	});
 	socket.on('load chats', async (req, userId) => {
-		const ans = await pool.query('SELECT chat_id FROM chat_members WHERE user_id = ?', [userId]);
+		const ans = await pool.query(
+			'SELECT chat_id FROM chat_members WHERE user_id = ?',
+			[userId]
+		);
 		const names = await pool.query('SELECT name, id FROM chats ');
 		io.emit('load chats', ans, userId, names);
 	});
@@ -131,6 +171,7 @@ app.use(require('./routes/login'));
 app.use(require('./routes/profile'));
 app.use(require('./routes/chats'));
 app.use(require('./routes/viajes'));
+app.use(require('./routes/compras'));
 
 //Static Files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -141,5 +182,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // });
 
 server.listen(app.get('port'), () => {
-	console.log(`Server on port ${app.get('port')} on http://localhost:${app.get('port')}`);
+	console.log(
+		`Server on port ${app.get('port')} on http://localhost:${app.get('port')}`
+	);
 });
