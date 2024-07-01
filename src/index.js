@@ -104,6 +104,8 @@ io.on('connection', (socket) => {
 			else console.log(-1);
 		} else return;
 	});
+	socket.on('load chat', async (req, chatId) => {
+		console.log(chatId);
 		const ans = await pool.query(
 			'SELECT content, sender FROM messages WHERE chat_id = ?',
 			[chatId]
@@ -112,7 +114,6 @@ io.on('connection', (socket) => {
 			'SELECT id, user_id FROM chat_members WHERE chat_id = ?',
 			[chatId]
 		);
-		console.log(ans);
 		var users = {
 			sender: {
 				username: '',
@@ -127,6 +128,7 @@ io.on('connection', (socket) => {
 		};
 		var a;
 		for (let i = 0; i < user.length; i++) {
+			console.log(i);
 			if (i == 0) {
 				let res = await pool.query(
 					'SELECT name, profile_image_route FROM usuario WHERE id = ?',
@@ -137,8 +139,7 @@ io.on('connection', (socket) => {
 				users.sender.id = user[i].user_id;
 				users.sender.profileImageRoute = res[0].profile_image_route;
 				a = user[i].user_id;
-			}
-			if (user[i].user_id != a) {
+			} else if (user[i].user_id != a) {
 				let res = await pool.query(
 					'SELECT name, profile_image_route FROM usuario WHERE id = ?',
 					[user[i].user_id]
@@ -146,10 +147,10 @@ io.on('connection', (socket) => {
 				users.receiver.username = res[0].name;
 				users.receiver.id = user[i].user_id;
 				users.receiver.profileImageRoute = res[0].profile_image_route;
-				i = ans.length;
+				i = user.length;
 			}
 		}
-		console.log(users);
+		//console.log(users);
 		if (ans) {
 			io.emit('load chat', ans, chatId, users);
 		} else return;

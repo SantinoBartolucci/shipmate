@@ -118,7 +118,7 @@ messageForm.addEventListener('submit', (e) => {
 function ListenBtns() {
 	document.querySelectorAll('.chat-selector').forEach((boton) => {
 		boton.addEventListener('click', function (event) {
-			var id = event.target.id;
+			var id = this.id;
 			chatId = id;
 			//console.log('actual chat is: ' + chatId);
 			socket.emit('load chat', 1, chatId);
