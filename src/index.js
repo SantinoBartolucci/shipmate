@@ -114,7 +114,6 @@ io.on('connection', (socket) => {
 			'SELECT id, user_id FROM chat_members WHERE chat_id = ?',
 			[chatId]
 		);
-		console.log(user);
 		var users = {
 			sender: {
 				username: '',

@@ -6,7 +6,7 @@ const { isLoggedIn } = require('../helpers/isLogged');
 router.get('/comprar', isLoggedIn, (req, res) => {
 	const user = req.user[0];
 
-	res.render('pages/compras/comprar', { user });
+	res.render('pages/compras/comprar-detalles', { user });
 });
 
 module.exports = router;

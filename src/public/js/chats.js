@@ -147,7 +147,7 @@ function LoadMessages(chat, ans, users) {
 			</div>
 		`;
 		messages.innerHTML = '';
-		console.log(lastCharged, chat);
+		//console.log(lastCharged, chat);
 		for (let i = 0; i < ans.length; i++) {
 			if (ans[i].sender == id) {
 				item = `
