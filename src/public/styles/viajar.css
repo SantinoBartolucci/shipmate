@@ -6,8 +6,6 @@
 
 .viajes-container {
 	margin-top: 40px;
-	background-color: white;
-	border-radius: 20px;
 }
 
 .viajes-wrapper {
@@ -17,7 +15,6 @@
 }
 
 .viajes-image-container {
-	margin-left: 10px;
 	height: 100%;
 	width: 50%;
 	display: flex;
