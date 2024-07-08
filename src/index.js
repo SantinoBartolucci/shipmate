@@ -113,7 +113,6 @@ io.on('connection', (socket) => {
 			'SELECT id, user_id FROM chat_members WHERE chat_id = ?',
 			[chatId]
 		);
-		console.log(ans);
 		var users = {
 			sender: {
 				username: '',
@@ -150,7 +149,6 @@ io.on('connection', (socket) => {
 				i = ans.length;
 			}
 		}
-		console.log(users);
 		if (ans) {
 			io.emit('load chat', ans, chatId, users);
 		} else return;
