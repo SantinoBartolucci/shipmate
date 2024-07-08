@@ -55,6 +55,13 @@
 		{{/if}}
 		<main>
 			<div class='container'>
+				{{#if error_msg}}
+					{{> error }}
+				{{/if}}
+				{{#if success_msg}}
+					{{> success }}
+				{{/if}}
+				
 				{{{body}}}
 			</div>
 		</main>
