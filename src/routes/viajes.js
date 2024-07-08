@@ -14,15 +14,13 @@ router.post('/viajar', isLoggedIn, async (req, res) => {
 	const user = req.user[0];
 	const { place_from, place_to, date_start, date_end } = req.body;
 
-	await pool.query('INSERT INTO viajes (place_from, place_to, date_start, date_end) VALUES (?, ?, ?, ?)', [
-		place_from,
-		place_to,
-		date_start,
-		date_end,
-	]);
+	await pool.query(
+		'INSERT INTO viajes (place_from, place_to, date_start, date_end) VALUES (?, ?, ?, ?)',
+		[place_from, place_to, date_start, date_end]
+	);
 
 	req.flash('success_msg', '¡Viaje registrado correctamente!');
-	res.render('pages/viajes/viajar', { user });
+	res.redirect('/viajar');
 });
 
 module.exports = router;
