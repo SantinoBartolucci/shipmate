@@ -75,8 +75,12 @@
 	pointer-events: none;
 }
 
+.chat-selected {
+	background-color: #bfc7c3;
+}
+
 .chats-contact:hover {
-	background-color: var(--greyblue);
+	background-color: #bfc7c3;
 }
 
 .chats-contact:first-of-type {
@@ -262,14 +266,14 @@
 .me {
 	float: right;
 	color: var(--dark);
-	background-color: #eceff1;
+	background-color: #d0d7da;
 	align-self: flex-end;
 	animation-name: slideFromRight;
 }
 
 .me::before {
 	right: -3px;
-	background-color: #eceff1;
+	background-color: #d0d7da;
 }
 
 @keyframes slideFromLeft {
