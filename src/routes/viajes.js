@@ -2,6 +2,7 @@ const { Router } = require('express');
 const router = Router();
 
 const { isLoggedIn } = require('../helpers/isLogged');
+const pool = require('../database');
 
 router.get('/viajar', isLoggedIn, (req, res) => {
 	const user = req.user[0];
@@ -9,16 +10,18 @@ router.get('/viajar', isLoggedIn, (req, res) => {
 	res.render('pages/viajes/viajar', { user });
 });
 
-router.post('/viajar', isLoggedIn, (req, res) => {
+router.post('/viajar', isLoggedIn, async (req, res) => {
 	const user = req.user[0];
-	const { box, place_from, place_to, date_start, date_end } = req.body;
+	const { place_from, place_to, date_start, date_end } = req.body;
 
-	console.log(box);
-	console.log(place_from);
-	console.log(place_to);
-	console.log(date_start);
-	console.log(date_end);
+	await pool.query('INSERT INTO viajes (place_from, place_to, date_start, date_end) VALUES (?, ?, ?, ?)', [
+		place_from,
+		place_to,
+		date_start,
+		date_end,
+	]);
 
+	req.flash('success_msg', '¡Viaje registrado correctamente!');
 	res.render('pages/viajes/viajar', { user });
 });
 
