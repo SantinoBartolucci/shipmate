@@ -12,6 +12,7 @@
 		<link rel='stylesheet' href='/styles/chats.css' />
 		<link rel='stylesheet' href='/styles/viajar.css' />
 		<link rel='stylesheet' href='/styles/comprar.css' />
+		<link rel='stylesheet' href='/styles/partials.css' />
 
 		<script src='https://kit.fontawesome.com/2040522002.js' crossorigin='anonymous'></script>
 	</head>
@@ -55,6 +56,13 @@
 		{{/if}}
 		<main>
 			<div class='container'>
+				{{#if error_msg}}
+					{{> error }}
+				{{/if}}
+				{{#if success_msg}}
+					{{> success }}
+				{{/if}}
+				
 				{{{body}}}
 			</div>
 		</main>

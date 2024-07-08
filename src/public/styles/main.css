@@ -166,6 +166,7 @@ nav hr {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex-direction: column;
 }
 
 /*#region Hero Section*/

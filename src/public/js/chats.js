@@ -118,6 +118,11 @@ messageForm.addEventListener('submit', (e) => {
 function ListenBtns() {
 	document.querySelectorAll('.chat-selector').forEach((boton) => {
 		boton.addEventListener('click', function (event) {
+			document.querySelectorAll('.chat-selector').forEach((b) => {
+				b.classList.remove("chat-selected");
+			});
+			boton.classList.add("chat-selected");
+
 			var id = this.id;
 			chatId = id;
 			//console.log('actual chat is: ' + chatId);
