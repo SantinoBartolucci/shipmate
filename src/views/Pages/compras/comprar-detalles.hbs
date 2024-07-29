@@ -1,41 +1,41 @@
 <div class='comprar-detalles-container'>
 	<div class='comprar-detalles-wrapper'>
-		<form action=''>
+		<form action='/comprar' method="post">
 			<h1>¡Postulá tu Pedido!</h1>
 			<h2>Detalles de tu Producto</h2>
 			<div class='compras-input-container'>
-				<input type='text' placeholder='Link del Producto' />
+				<input type='text' placeholder='Link del Producto' name="link" required />
 			</div>
 			<div class='compras-input-container'>
-				<input type='text' placeholder='Nombre del Producto' />
+				<input type='text' placeholder='Nombre del Producto' name="name" required />
 			</div>
 			<div class='compras-input-container-two'>
 				<div class='two-inputs-div'>
 					<div class='compras-two-input-container'>
-						<input type='number' placeholder='Precio' />
+						<input type='number' placeholder='Precio' name="price" required />
 					</div>
 					<div class='compras-two-input-container'>
-						<input type='number' placeholder='Cantidad' />
+						<input type='number' placeholder='Cantidad' name="amount" required />
 					</div>
 				</div>
 			</div>
 			<div class='compras-input-container'>
-				<input type='text' placeholder='Detalles del Producto' />
+				<input type='text' placeholder='Detalles del Producto' name="details" />
 			</div>
 			<h2 style='margin-top:20px;'>Detalles del Envío</h2>
 			<div class='compras-input-container'>
-				<input type='text' placeholder='Envío Desde' />
+				<input type='text' placeholder='Envío Desde' name="from" required />
 			</div>
 			<div class='compras-input-container'>
-				<input type='text' placeholder='Envío Hacia' />
+				<input type='text' placeholder='Envío Hacia' name="to" required />
 			</div>
 			<div class='compras-input-radio-container'>
 				<label class='left checked'>
-					<input type='radio' name='option' checked onclick='ToogleCheckedRadioLabel()' />
+					<input type='radio' name='box' value="no" checked onclick='ToogleCheckedRadioLabel()' required />
 					Sin Caja
 				</label>
 				<label class='right'>
-					<input type='radio' name='option' onclick='ToogleCheckedRadioLabel()' />
+					<input type='radio' name='box' value="yes" onclick='ToogleCheckedRadioLabel()' required />
 					Con Caja
 				</label>
 			</div>
