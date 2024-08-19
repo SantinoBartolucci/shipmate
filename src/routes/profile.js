@@ -49,7 +49,7 @@ router.get('/profile/:id', isLoggedIn, async (req, res) => {
 
 router.get('/mytripsandproducts', isLoggedIn, (req, res) => {
 	let user = req.user[0];
-	res.render('/pages/profile/mytripsandproducts', { user });
+	res.render('pages/profile/mytripsandproducts', { user });
 });
 
 async function getUserInfo(id) {
