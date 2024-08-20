@@ -47,6 +47,11 @@ router.get('/profile/:id', isLoggedIn, async (req, res) => {
 	});
 });
 
+router.get('/mytripsandproducts', isLoggedIn, (req, res) => {
+	let user = req.user[0];
+	res.render('pages/profile/mytripsandproducts', { user });
+});
+
 async function getUserInfo(id) {
 	const ans = await pool.query('select * from usuario where id = ? ', [id]);
 	return ans[0];

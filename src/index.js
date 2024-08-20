@@ -170,6 +170,7 @@ app.use(require('./routes/profile'));
 app.use(require('./routes/chats'));
 app.use(require('./routes/viajes'));
 app.use(require('./routes/compras'));
+app.use(require('./routes/pedidoTramite'));
 
 //Static Files
 app.use(express.static(path.join(__dirname, 'public')));

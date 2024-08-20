@@ -1,0 +1,219 @@
+:root {
+	--darkblue: #1e1e2c;
+	--lightblue: #3b8ff3;
+	--grey: #d6dbd8;
+    --almostwhite: #eff3f0;
+}
+
+.offer-wrapper {
+    margin-top: 50px;
+	width: 80%;
+	min-height: 600px;
+	border-radius: 20px;
+	background-color: white;
+	padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.offer-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.offer-first-half {
+    width: 50%;
+    height: 100%;
+}
+
+.offer-second-half {
+    width: 50%;
+    height: 100%;
+
+}
+
+.offer-description {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 40px;
+}
+
+.offer-description-details {
+    width: 100%;
+    height: 100%;
+    height: 100%;
+    margin: 10px 0;
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--grey);
+    border-radius: 10px;
+}
+
+.producto-input-container-two {
+	width: 100%;
+	margin: 5px 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.offer-info-white-background {
+    background-color: white;
+    height: 100%;
+    width: 65%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.offer-image {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.offer-image img {
+    width: 80%;
+    height: 80%;
+}
+
+.offer-listado-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px 20px 20px;
+}
+
+.offer-listado-container h1 {
+    padding-bottom: 10px;
+}
+
+.offer-listado {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: var(--grey);
+    /* border: .5px solid rgb(0,0,0, 0.5); */
+}
+
+.my-no-data-background {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.offer-listado .my-no-data-background img {
+    width: 75%;
+    height: 75%;
+    margin-bottom: 10px;
+}
+
+.disabled {
+    display: none;
+}
+
+.my-data-offers {
+    width: 100%;
+    height: 100%;
+}
+
+.my-data-offers-header {
+    background-color: var(--darkblue);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+    min-height: 5%;
+}
+
+.my-data-offers-offer {
+    width: 100%;
+    height: 15%;
+    background-color: white;
+    border-bottom: 1px solid rgb(0,0,0, 0.3);
+    border-left: 1px solid rgb(0,0,0, 0.3);
+    border-right: 1px solid rgb(0,0,0, 0.3);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    justify-content: space-between;
+}
+
+.my-data-small-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.my-data-offers-offer div {
+    height: 100%;
+    /* width: 50%; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.my-data-offers-offer-buttons {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my-data-offers-green-button {
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+    background-color: greenyellow;
+    background-image: url("/img/check-solid.svg");
+    background-repeat: no-repeat;
+	background-position: center;
+	background-size: 60%;
+    cursor: pointer;
+    margin: 0 15px;
+}
+
+.my-data-offers-red-button {
+    width: 25px;
+    height: 25px;
+    border-radius: 50px;
+    background-color: red;
+    background-image: url("/img/x-solid.svg");
+    background-repeat: no-repeat;
+	background-position: center;
+	background-size: 45%;
+    cursor: pointer;
+}
+
+.my-data-offers-scroll-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.be-the-first {
+    background-color: var(--darkblue);
+    color: white;
+    padding: 5px;
+    border-radius: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
