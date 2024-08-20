@@ -1,0 +1,74 @@
+<div class="offer-wrapper">
+    <div class="offer-container">
+        <div class="offer-first-half">
+            <div class="offer-description">
+                <h1>Nootebook Lenovo 1</h1>
+                <div class="offer-description-details">
+                    <div class="producto-input-container-two">
+                        <p>Precio:</p>
+                        <div class="offer-info-white-background">
+                            <p>500USD$</p>
+                        </div>
+                    </div>
+                    <div class="producto-input-container-two">
+                        <p>Desde-Hacia:</p>
+                        <div class="offer-info-white-background">
+                            <p>Washington, USA -<br>Buenos Aires, Argentina</p>
+                        </div>
+                    </div>
+                    <div class="producto-input-container-two">
+                        <p>Desde-Hacia:</p>
+                        <div class="offer-info-white-background">
+                            <p>Washington, USA -<br>Buenos Aires, Argentina</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="offer-image">
+                <img src="/img/ThisGoesOnEveryOfferDetail.svg" alt="">
+            </div>
+        </div>
+        <div class="offer-second-half">
+            <div class="offer-listado-container">
+                <h1>Listado de Ofertas</h1>
+                <div class="offer-listado">
+                    {{!-- !! IF OWNER --}}
+                        {{!-- !! IF NO OFFERS --}}
+                    <div class="my-no-data-background disabled">
+                        <img src="/img/undraw_no_data_re_kwbl.svg" alt="">
+                        <p>¡Parece que no hay ofertas!</p>
+                    </div>
+                        {{!-- !! ELSE --}}
+                        <div class="my-data-offers disabled">
+                            <div class="my-data-offers-header"></div>
+                            <div class="my-data-offers-scroll-container">
+                                <div class="my-data-offers-offer">
+                                   <div>
+                                       <img class="my-data-small-img" src="/img/default-profile.jpg" alt="">
+                                    <h2>Santino B.</h1>
+                                   </div>
+                                   <div>
+                                       <h3>500USD$</h3>
+                                    <div class="my-data-offers-offer-buttons">
+                                           <a href="/" class="my-data-offers-green-button"></a>
+                                           <a href="/" class="my-data-offers-red-button"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{!-- !! ELSE  --}}
+                        {{!-- !! IF NO OFFERS --}}
+                        <div class="my-no-data-background">
+                            <img src="/img/undraw_adventure_map_hnin.svg" alt="">
+                            <p>¡Parece que no hay ofertas!</p>
+                            <a href="/" class="be-the-first">¡Se el primero!</a>
+                        </div>
+                        {{!-- !! ELSE --}}
+                    {{!-- !! /ELSE --}}
+                    {{!-- ?? DIV EXTRA DE OFERTAR --}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
