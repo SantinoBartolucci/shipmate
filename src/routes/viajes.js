@@ -13,10 +13,15 @@ router.get('/viajar', isLoggedIn, (req, res) => {
 router.post('/viajar', isLoggedIn, async (req, res) => {
 	const { place_from, place_to, date_start, date_end } = req.body;
 
-	await pool.query(
+	const response = await pool.query(
 		'INSERT INTO viajes (place_from, place_to, date_start, date_end) VALUES (?, ?, ?, ?)',
 		[place_from, place_to, date_start, date_end]
 	);
+
+	await pool.query('INSERT INTO viajando (travel_id, user_id) VALUES (?, ?)', [
+		response.insertId,
+		req.user[0].id,
+	]);
 
 	req.flash('success_msg', '¡Viaje registrado correctamente!');
 	res.redirect('/viajar');

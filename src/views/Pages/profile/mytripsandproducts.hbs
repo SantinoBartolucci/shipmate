@@ -1,39 +1,44 @@
-<div class="tripsandprojects-wrapper">
-    <div class="tripsandprojects-container">
-        <div class="productsortrips-section">
-            <div class="productsortrips-section-header">
-                <h1>Mis Pedidos</h1>
-            </div>
-            <div class="productsortrips-section-body">
-                <div class="productsortrips-section-item">
-                    <div class="productsortrips-item-container">
-                        <a href="">Nombre</a>
-                        <a href=""><img src="img/trash-solid.svg" alt=""></a>
-                    </div>
-                </div>
-                <div class="productsortrips-section-additem">
-                    <img src="/img/plus-solid.svg" alt="">
-                </div>
-            </div>
-        </div>
-        <div class="productsortrips-section">
-            <div class="productsortrips-section-header">
-                <h1>Mis Viajes</h1>
-            </div>
-            <div class="productsortrips-section-body">
-                <div class="productsortrips-section-item">
-                    <div class="productsortrips-item-container">
-                        <div>
-                            <h3>Desde: 20/05/2024</h3>
-                            <h3>Hasta: 27/05/2024</h3>
-                        </div>
-                        <a href=""><img src="img/trash-solid.svg" alt=""></a>
-                    </div>
-                </div>
-                <div class="productsortrips-section-additem">
-                    <img src="/img/plus-solid.svg" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
+<div class='tripsandprojects-wrapper'>
+	<div class='tripsandprojects-container'>
+		<div class='productsortrips-section'>
+			<div class='productsortrips-section-header'>
+				<h1>Mis Pedidos</h1>
+			</div>
+			<div class='productsortrips-section-body'>
+				{{#each products}}
+					<div class='productsortrips-section-item'>
+						<div class='productsortrips-item-container'>
+							<a href=''> {{this.name}} </a>
+							<a href=''><img src='img/trash-solid.svg' alt='' /></a>
+						</div>
+					</div>
+				{{/each}}
+				<div class='productsortrips-section-additem'>
+					<img src='/img/plus-solid.svg' alt='' />
+				</div>
+			</div>
+		</div>
+		<div class='productsortrips-section'>
+			<div class='productsortrips-section-header'>
+				<h1>Mis Viajes</h1>
+			</div>
+			<div class='productsortrips-section-body'>
+				{{#each travels}}
+					<div class='productsortrips-section-item'>
+						<div class='productsortrips-item-container'>
+							<div>
+								<h3> destino: {{place_to}} </h3>
+								<h3> desde: {{date_start}} </h3>
+								<h3> hasta: {{date_end}} </h3>
+							</div>
+							<a href=''><img src='img/trash-solid.svg' alt='' /></a>
+						</div>
+					</div>
+				{{/each}}
+				<div class='productsortrips-section-additem'>
+					<img src='/img/plus-solid.svg' alt='' />
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
