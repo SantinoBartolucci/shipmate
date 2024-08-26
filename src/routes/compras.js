@@ -15,14 +15,30 @@ router.post('/comprar', async (req, res) => {
 
 	const with_box = box == 'no' ? false : true;
 	price *= amount;
-	let viajero = price * 0.25; viajero = Number.parseFloat(viajero).toFixed(2);
-	let service = price * 0.10; service = Number.parseFloat(service).toFixed(2);
-	let total = Number(price) + Number(viajero) + Number(service); 
-	total = Number.parseFloat(total).toFixed(2); total = Number(total);
+	let viajero = price * 0.25;
+	viajero = Number.parseFloat(viajero).toFixed(2);
+	let service = price * 0.1;
+	service = Number.parseFloat(service).toFixed(2);
+	let total = Number(price) + Number(viajero) + Number(service);
+	total = Number.parseFloat(total).toFixed(2);
+	total = Number(total);
 
 	const result = await pool.query(
-		'INSERT INTO pedidos (link, name, price, viajero, service, total, amount, details, from_place, to_place, with_box) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-		[link, name, price, viajero, service, total, amount, details, from, to, with_box]
+		'INSERT INTO pedidos (link, name, price, viajero, service, total, amount, details, from_place, to_place, with_box, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+		[
+			link,
+			name,
+			price,
+			viajero,
+			service,
+			total,
+			amount,
+			details,
+			from,
+			to,
+			with_box,
+			req.user[0].id,
+		]
 	);
 
 	req.session.pedidoId = result.insertId;
@@ -45,10 +61,10 @@ router.get('/comprar-confirmar', isLoggedIn, async (req, res) => {
 		details: data[0].details,
 		from: data[0].from_place,
 		to: data[0].to_place,
-		box: data[0].with_box == true ? "Si" : "No",
+		box: data[0].with_box == true ? 'Si' : 'No',
 		viajero: data[0].viajero,
 		service: data[0].service,
-		total: data[0].total
+		total: data[0].total,
 	};
 
 	res.render('pages/compras/comprar-confirmar', { user, product });
