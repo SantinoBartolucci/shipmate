@@ -286,13 +286,13 @@
 } 
 
 .my-data-offers-header-close {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border-radius: 50px;
     background-color: red;
     background-image: url("/img/x-solid.svg");
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center left 4px;
     cursor: pointer;
     background-size: 60%;
 }

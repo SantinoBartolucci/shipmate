@@ -57,8 +57,26 @@ router.get('/mytripsandproducts', isLoggedIn, async (req, res) => {
 	let user = req.user[0];
 	let travels = await getTravels(user.id);
 	let products = await getProducts(user.id);
+
 	res.render('pages/profile/mytripsandproducts', { user, travels, products });
 });
+
+router.get("/mytripsandproducts/product/del/:id", isLoggedIn, async (req, res) => {
+	let id = req.params.id;
+	await pool.query("DELETE from pedidos WHERE id=?", [id]);
+
+	req.flash('success_msg', 'Pedido eliminado correctamente!');
+	res.redirect("/mytripsandproducts");
+})
+
+router.get("/mytripsandproducts/trip/del/:id", isLoggedIn, async (req, res) => {
+	let id = req.params.id;
+	await pool.query("DELETE from viajes WHERE id=?", [id]);
+
+	req.flash('success_msg', 'Viaje eliminado correctamente!');
+	res.redirect("/mytripsandproducts");
+})
+
 
 async function getUserInfo(id) {
 	const ans = await pool.query('select * from usuario where id = ? ', [id]);
@@ -71,6 +89,7 @@ async function getReviews(id) {
 	]);
 	return ans;
 }
+
 async function getTravels(id) {
 	const travelId = await pool.query(
 		'select travel_id from viajando where user_id = ?',
@@ -100,6 +119,7 @@ async function getTravels(id) {
 
 	return results;
 }
+
 async function getProducts(id) {
 	const products = await pool.query('select * from pedidos where user_id = ?', [
 		id,
