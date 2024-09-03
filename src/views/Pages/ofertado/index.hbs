@@ -32,41 +32,73 @@
             <div class="offer-listado-container">
                 <h1>Listado de Ofertas</h1>
                 <div class="offer-listado">
+                    <div class="my-data-offers-header">
+                        <div class="my-data-offers-header-close">
+                            
+                        </div>
+                    </div>
                     {{!-- !! IF OWNER --}}
-                        {{!-- !! IF NO OFFERS --}}
+                    {{!-- !! IF NO OFFERS --}}
                     <div class="my-no-data-background disabled">
                         <img src="/img/undraw_no_data_re_kwbl.svg" alt="">
                         <p>¡Parece que no hay ofertas!</p>
                     </div>
-                        {{!-- !! ELSE --}}
-                        <div class="my-data-offers disabled">
-                            <div class="my-data-offers-header"></div>
-                            <div class="my-data-offers-scroll-container">
-                                <div class="my-data-offers-offer">
-                                   <div>
-                                       <img class="my-data-small-img" src="/img/default-profile.jpg" alt="">
+                    {{!-- !! ELSE --}}
+                    <div class="my-data-offers disabled">
+                        <div class="my-data-offers-scroll-container">
+                            <div class="my-data-offers-offer">
+                                <div>
+                                    <img class="my-data-small-img" src="/img/default-profile.jpg" alt="">
                                     <h2>Santino B.</h1>
-                                   </div>
-                                   <div>
-                                       <h3>500USD$</h3>
+                                </div>
+                                <div>
+                                    <h3>500USD$</h3>
                                     <div class="my-data-offers-offer-buttons">
-                                           <a href="/" class="my-data-offers-green-button"></a>
-                                           <a href="/" class="my-data-offers-red-button"></a>
-                                        </div>
+                                        <a href="/" class="my-data-offers-green-button"></a>
+                                        <a href="/" class="my-data-offers-red-button"></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    {{!-- !! ELSE  --}}
-                        {{!-- !! IF NO OFFERS --}}
-                        <div class="my-no-data-background">
-                            <img src="/img/undraw_adventure_map_hnin.svg" alt="">
-                            <p>¡Parece que no hay ofertas!</p>
-                            <a href="/" class="be-the-first">¡Se el primero!</a>
+                    </div>
+                    {{!-- !! ELSE (if owner) --}}
+                    {{!-- !! IF NO OFFERS --}}
+                    <div class="my-no-data-background disabled">
+                        <img src="/img/undraw_adventure_map_hnin.svg" alt="">
+                        <p>¡Parece que no hay ofertas!</p>
+                        <a href="/" class="be-the-first">¡Se el primero!</a>
+                    </div>
+                    {{!-- !! ELSE --}}
+                    <div class="my-data-offers disabled">
+                        <div class="my-data-offers-scroll-container">
+                            <div class="my-data-offers-offer">
+                                <div>
+                                    <img class="my-data-small-img" src="/img/default-profile.jpg" alt="">
+                                    <h2>Santino B.</h1>
+                                </div>
+                                <div>
+                                    <h3>500USD$</h3>
+                                </div>
+                            </div>
+                            <div class="my-data-offers-add-offer"> 
+                                <h2><i class="fa-solid fa-plus"></i>  OFERTAR</h1>
+                            </div>
                         </div>
-                        {{!-- !! ELSE --}}
+                    </div>
                     {{!-- !! /ELSE --}}
                     {{!-- ?? DIV EXTRA DE OFERTAR --}}
+                    <div class="my-data-offers-form">
+                        <form class="my-data-offers-form-half">
+                            <div class="my-data-offers-form-input">
+                                <h2>Comisión:</h2>
+                                <input class="lol" type="number">
+                            </div>
+                            <input class="my-data-form-submit" type="submit" value="OFERTAR">
+                        </form>
+                        <div class="my-data-offers-form-img">
+                            <img src="/img/undraw_accept_request_re_d81h.svg" alt="">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -140,6 +140,9 @@
     border-top-right-radius: 10px;
     width: 100%;
     min-height: 5%;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 3px;
 }
 
 .my-data-offers-offer {
@@ -216,4 +219,87 @@
     border-radius: 10px;
     margin-top: 10px;
     cursor: pointer;
+}
+
+.my-data-offers-add-offer {
+    width: 100%;
+    height: 15%;
+    background-color: white;
+    border-bottom: 1px solid rgb(0,0,0, 0.3);
+    border-left: 1px solid rgb(0,0,0, 0.3);
+    border-right: 1px solid rgb(0,0,0, 0.3);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    justify-content: center;
+}
+
+.my-data-offers-form {
+    width: 100%;
+    height: 100%;
+}
+
+.my-data-offers-form-half {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.my-data-offers-form-img {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-data-offers-form-img img {
+    width: 80%;
+    height: 80%;
+}
+
+.my-data-offers-form-input {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    margin-bottom: 50px;
+}
+
+.my-data-form-submit {
+    width: 65%;
+    height: 15%;
+    background-color: var(--lightblue);
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;  
+    cursor: pointer;
+} 
+
+.my-data-offers-header-close {
+    width: 18px;
+    height: 18px;
+    border-radius: 50px;
+    background-color: red;
+    background-image: url("/img/x-solid.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    background-size: 60%;
+}
+
+.my-data-offers-form-input .lol {
+    border: none;
+    border-radius: 10px;
+    height: 100%;
+    padding: 10px;
 }
