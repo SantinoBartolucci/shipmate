@@ -8,13 +8,13 @@
 				{{#each products}}
 					<div class='productsortrips-section-item'>
 						<div class='productsortrips-item-container'>
-							<a href=''> {{this.name}} </a>
-							<a href=''><img src='img/trash-solid.svg' alt='' /></a>
+							<a style="cursor: default;"> {{this.name}} </a>
+							<a href="/mytripsandproducts/product/del/{{this.id}}"><img src='img/trash-solid.svg' alt='' /></a>
 						</div>
 					</div>
 				{{/each}}
 				<div class='productsortrips-section-additem'>
-					<img src='/img/plus-solid.svg' alt='' />
+					<a href="/comprar"><img src='/img/plus-solid.svg' alt='' /></a>
 				</div>
 			</div>
 		</div>
@@ -27,16 +27,16 @@
 					<div class='productsortrips-section-item'>
 						<div class='productsortrips-item-container'>
 							<div>
-								<h3> destino: {{place_to}} </h3>
-								<h3> desde: {{date_start}} </h3>
-								<h3> hasta: {{date_end}} </h3>
+								<h3 style="cursor: default;"> Destino: <span style="font-weight: 500;">{{place_to}}</span> </h3>
+								<h3 style="cursor: default;"> Desde: <span style="font-weight: 500;">{{date_start}}</span> </h3>
+								<h3 style="cursor: default;"> Hasta: <span style="font-weight: 500;">{{date_end}}</span> </h3>
 							</div>
-							<a href=''><img src='img/trash-solid.svg' alt='' /></a>
+							<a href="/mytripsandproducts/trip/del/{{this.id}}"><img src='img/trash-solid.svg' alt='' /></a>
 						</div>
 					</div>
 				{{/each}}
 				<div class='productsortrips-section-additem'>
-					<img src='/img/plus-solid.svg' alt='' />
+					<a href="/viajar"><img src='/img/plus-solid.svg' alt='' /></a>
 				</div>
 			</div>
 		</div>

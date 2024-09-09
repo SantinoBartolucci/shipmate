@@ -105,7 +105,8 @@ nav .title {
 	font-size: 30px;
 	margin: 50px 50px 50px 20px;
 	font-weight: 700;
-	cursor: default;
+	cursor: pointer;
+	user-select: none;
 }
 
 nav hr {
