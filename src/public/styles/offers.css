@@ -120,9 +120,9 @@
 }
 
 .offer-listado .my-no-data-background img {
-    width: 75%;
-    height: 75%;
-    margin-bottom: 10px;
+    width: 70%;
+    height: 70%;
+    margin-bottom: 5px;
 }
 
 .disabled {
@@ -233,6 +233,7 @@
     align-items: center;
     padding: 5px;
     justify-content: center;
+    cursor: pointer;
 }
 
 .my-data-offers-form {

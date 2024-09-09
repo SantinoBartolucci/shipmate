@@ -113,6 +113,7 @@ async function getTravels(id) {
 				date_start: DateToDayMonthAndYear(e.date_start),
 				date_end: DateToDayMonthAndYear(e.date_end),
 			};
+			ans.date_end = (ans.date_end == "32 de Diciembre de 1969") ? "-" : ans.date_end;
 			results.push(ans);
 		});
 	});

@@ -2,24 +2,24 @@
     <div class="offer-container">
         <div class="offer-first-half">
             <div class="offer-description">
-                <h1>Nootebook Lenovo 1</h1>
+                <h1>{{product.name}}</h1>
                 <div class="offer-description-details">
                     <div class="producto-input-container-two">
                         <p>Precio:</p>
                         <div class="offer-info-white-background">
-                            <p>500USD$</p>
+                            <p>{{product.total}}USD$</p>
                         </div>
                     </div>
                     <div class="producto-input-container-two">
-                        <p>Desde-Hacia:</p>
+                        <p>Desde:</p>
                         <div class="offer-info-white-background">
-                            <p>Washington, USA -<br>Buenos Aires, Argentina</p>
+                            <p>{{product.from_place}} -<br>{{product.to_place}}</p>
                         </div>
                     </div>
                     <div class="producto-input-container-two">
-                        <p>Desde-Hacia:</p>
-                        <div class="offer-info-white-background">
-                            <p>Washington, USA -<br>Buenos Aires, Argentina</p>
+                        <p>Detalle:</p>
+                        <div class="offer-info-white-background" style="padding: 10px;">
+                            <p>{{product.details}}</p>
                         </div>
                     </div>
                 </div>
@@ -33,65 +33,72 @@
                 <h1>Listado de Ofertas</h1>
                 <div class="offer-listado">
                     <div class="my-data-offers-header">
-                        <div class="my-data-offers-header-close" onclick="CloseOfertar()">
+                        <div class="my-data-offers-header-close disabled" onclick="CloseOfertar()">
                             
                         </div>
                     </div>
-                    {{!-- !! IF OWNER --}}
-                    {{!-- !! IF NO OFFERS --}}
-                    <div class="my-no-data-background disabled">
-                        <img src="/img/undraw_no_data_re_kwbl.svg" alt="">
-                        <p>¡Parece que no hay ofertas!</p>
-                    </div>
-                    {{!-- !! ELSE --}}
-                    <div class="my-data-offers disabled">
-                        <div class="my-data-offers-scroll-container">
-                            <div class="my-data-offers-offer">
-                                <div>
-                                    <img class="my-data-small-img" src="/img/default-profile.jpg" alt="">
-                                    <h2>Santino B.</h1>
+                    {{#if owner}}
+                        {{#if offers}}
+                            <div class="my-data-offers">
+                                <div class="my-data-offers-scroll-container">
+                                    {{#each offers}}
+                                        <div class="my-data-offers-offer">
+                                            <div>
+                                                <img class="my-data-small-img" src='/img/profile-pictures/{{id_usuario}}.jpg' alt="">
+                                                <h2>Santino B.</h1>
+                                            </div>
+                                            <div>
+                                                <h3>{{total}}USD$</h3>
+                                                <div class="my-data-offers-offer-buttons">
+                                                    <a href="/" class="my-data-offers-green-button"></a>
+                                                    <a href="/deleteOffer/{{id}}" class="my-data-offers-red-button"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {{/each}}
                                 </div>
-                                <div>
-                                    <h3>500USD$</h3>
-                                    <div class="my-data-offers-offer-buttons">
-                                        <a href="/" class="my-data-offers-green-button"></a>
-                                        <a href="/" class="my-data-offers-red-button"></a>
+                            </div>
+                        {{else}}
+                            <div class="my-no-data-background">
+                                <img src="/img/undraw_no_data_re_kwbl.svg" alt="">
+                                <p>¡Parece que no hay ofertas!</p>
+                            </div>
+                        {{/if}}
+                    {{else}}
+                        {{#if offers}}
+                            <div class="my-data-offers">
+                                <div class="my-data-offers-scroll-container">
+                                    {{#each offers}}
+                                        <div class="my-data-offers-offer">
+                                            <div>
+                                                <img class="my-data-small-img" src='/img/profile-pictures/{{id_usuario}}.jpg' alt="">
+                                                <h2>Santino B.</h1>
+                                            </div>
+                                            <div>
+                                                <h3>{{total}}USD$</h3>
+                                            </div>
+                                        </div>
+                                    {{/each}}
+                                    <div class="my-data-offers-add-offer"> 
+                                        <h2 id="ofertar2" onclick="OpenOfertar(this)"><i class="fa-solid fa-plus"></i>  OFERTAR</h1>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    {{!-- !! ELSE (if owner) --}}
-                    {{!-- !! IF NO OFFERS --}}
-                    <div class="my-no-data-background disabled">
-                        <img src="/img/undraw_adventure_map_hnin.svg" alt="">
-                        <p>¡Parece que no hay ofertas!</p>
-                        <a href="/" class="be-the-first">¡Se el primero!</a>
-                    </div>
-                    {{!-- !! ELSE --}}
-                    <div class="my-data-offers disabled">
-                        <div class="my-data-offers-scroll-container">
-                            <div class="my-data-offers-offer">
-                                <div>
-                                    <img class="my-data-small-img" src="/img/default-profile.jpg" alt="">
-                                    <h2>Santino B.</h1>
-                                </div>
-                                <div>
-                                    <h3>500USD$</h3>
-                                </div>
+                        {{else}}
+                            <div class="my-no-data-background">
+                                <img src="/img/undraw_adventure_map_hnin.svg" alt="">
+                                <p>¡Parece que no hay ofertas!</p>
+                                <a id="ofertar1" onclick="OpenOfertar(this)" class="be-the-first">¡Se el primero!</a>
                             </div>
-                            <div class="my-data-offers-add-offer"> 
-                                <h2><i class="fa-solid fa-plus"></i>  OFERTAR</h1>
-                            </div>
-                        </div>
-                    </div>
-                    {{!-- !! /ELSE --}}
+                        {{/if}}
+                    {{/if}}
+
                     {{!-- ?? DIV EXTRA DE OFERTAR --}}
-                    <div class="my-data-offers-form" id="ofertar-offers">
-                        <form class="my-data-offers-form-half">
+                    <div class="my-data-offers-form disabled" id="ofertar-offers">
+                        <form class="my-data-offers-form-half" method="post" action="/productoenoferta/{{product.id}}/ofertar">
                             <div class="my-data-offers-form-input">
                                 <h2>Comisión:</h2>
-                                <input class="lol" type="number">
+                                <input class="lol" type="number" name="comision">
                             </div>
                             <input class="my-data-form-submit" type="submit" value="OFERTAR">
                         </form>
