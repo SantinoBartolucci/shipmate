@@ -72,7 +72,7 @@ socket.on('load chat', (ans, chat, users) => {
 	}
 });
 
-socket.on('load chats', (ans, userId, names) => {
+socket.on('load chats', (ans, userId, names, userInfo) => {
 	if (id == userId) {
 		if (ans && names) {
 			var name = 1;
@@ -85,7 +85,7 @@ socket.on('load chats', (ans, userId, names) => {
 				let item = `
                     <div class='chats-contact chat-selector' id="${ans[i].chat_id}">
                         <div>
-                            <img src='/img/default-profile.jpg' alt='profile-picture-another-user' />
+                            <img src='/img/${userInfo[0].profile_image_route} ' alt='profile-picture-another-user' />
                             <h1>${name}</h1>
                         </div>
                         <hr />
@@ -119,9 +119,9 @@ function ListenBtns() {
 	document.querySelectorAll('.chat-selector').forEach((boton) => {
 		boton.addEventListener('click', function (event) {
 			document.querySelectorAll('.chat-selector').forEach((b) => {
-				b.classList.remove("chat-selected");
+				b.classList.remove('chat-selected');
 			});
-			boton.classList.add("chat-selected");
+			boton.classList.add('chat-selected');
 
 			var id = this.id;
 			chatId = id;

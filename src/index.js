@@ -159,7 +159,10 @@ io.on('connection', (socket) => {
 			[userId]
 		);
 		const names = await pool.query('SELECT name, id FROM chats ');
-		io.emit('load chats', ans, userId, names);
+		const userInfo = await pool.query('select * from usuario where id = ?', [
+			userId,
+		]);
+		io.emit('load chats', ans, userId, names, userInfo);
 	});
 });
 
