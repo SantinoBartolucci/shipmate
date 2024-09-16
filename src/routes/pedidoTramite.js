@@ -21,7 +21,7 @@ router.post("/productoenoferta/:id/ofertar", isLoggedIn, async (req, res) => {
     const { comision } = req.body;
 
     let product = await pool.query("SELECT viajero, total FROM pedidos WHERE id=?", [product_id]);
-    let ofertaTotal = product.total - product.viajero + comision;
+    let ofertaTotal = product[0].total - product[0].viajero + parseInt(comision);
 
     await pool.query("INSERT INTO `ofertas`(`id_usuario`, `id_pedido`, `total`) VALUES (?, ?, ?)", [user.id, product_id, ofertaTotal]);
     
@@ -36,7 +36,7 @@ router.get("/deleteOffer/:id", isLoggedIn, async (req, res) => {
 });
 
 async function GetProduct(id) {
-    const product = await pool.query("SELECT user_id, name, total, from_place, to_place, details FROM pedidos WHERE id=?", [id]); 
+    const product = await pool.query("SELECT id, user_id, name, total, from_place, to_place, details FROM pedidos WHERE id=?", [id]); 
 
     return product[0];
 }
@@ -46,17 +46,20 @@ async function GetOffers(pedidoId, userId) {
 
     let results = [];
 
-    offers.forEach(e => {
+    for (e of offers) {
+        username = await pool.query("SELECT name FROM usuario WHERE id=?", [e.id_usuario]);
+
         let ans = {
             id: e.id,
             id_usuario: e.id_usuario,
+            username: username[0].name,
             id_pedido: e.id_pedido,
             total: e.total,
         }
 
         ans.user_owner = (ans.id_usuario == userId) ? true : false;
         results.push(ans);
-    });
+    };
 
     return results
 }
