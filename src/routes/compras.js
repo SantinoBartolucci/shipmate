@@ -25,20 +25,7 @@ router.post('/comprar', async (req, res) => {
 
 	const result = await pool.query(
 		'INSERT INTO pedidos (link, name, price, viajero, service, total, amount, details, from_place, to_place, with_box, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-		[
-			link,
-			name,
-			price,
-			viajero,
-			service,
-			total,
-			amount,
-			details,
-			from,
-			to,
-			with_box,
-			req.user[0].id,
-		]
+		[link, name, price, viajero, service, total, amount, details, from, to, with_box, req.user[0].id]
 	);
 
 	req.session.pedidoId = result.insertId;
