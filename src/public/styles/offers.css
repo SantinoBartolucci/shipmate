@@ -2,61 +2,60 @@
 	--darkblue: #1e1e2c;
 	--lightblue: #3b8ff3;
 	--grey: #d6dbd8;
-    --almostwhite: #eff3f0;
+	--almostwhite: #eff3f0;
 }
 
 .offer-wrapper {
-    margin-top: 50px;
+	margin-top: 50px;
 	width: 80%;
 	min-height: 600px;
 	border-radius: 20px;
 	background-color: white;
 	padding: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 50px;
 }
 
 .offer-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
 }
 
 .offer-first-half {
-    width: 50%;
-    height: 100%;
+	width: 50%;
+	height: 100%;
 }
 
 .offer-second-half {
-    width: 50%;
-    height: 100%;
-
+	width: 50%;
+	height: 100%;
 }
 
 .offer-description {
-    width: 100%;
-    height: 50%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 10px 40px;
+	width: 100%;
+	height: 50%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 10px 40px;
 }
 
 .offer-description-details {
-    width: 100%;
-    height: 100%;
-    height: 100%;
-    margin: 10px 0;
-    padding: 10px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: var(--grey);
-    border-radius: 10px;
+	width: 100%;
+	height: 100%;
+	height: 100%;
+	margin: 10px 0;
+	padding: 10px 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background-color: var(--grey);
+	border-radius: 10px;
 }
 
 .producto-input-container-two {
@@ -67,240 +66,286 @@
 }
 
 .offer-info-white-background {
-    background-color: white;
-    height: 100%;
-    width: 65%;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
+	background-color: white;
+	height: 100%;
+	width: 65%;
+	border-radius: 10px;
+	display: flex;
+	justify-content: center;
 }
 
 .offer-image {
-    width: 100%;
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	width: 100%;
+	height: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .offer-image img {
-    width: 80%;
-    height: 80%;
+	width: 80%;
+	height: 80%;
 }
 
 .offer-listado-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 10px 20px 20px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 10px 20px 20px;
 }
 
 .offer-listado-container h1 {
-    padding-bottom: 10px;
+	padding-bottom: 10px;
 }
 
 .offer-listado {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    background-color: var(--grey);
-    /* border: .5px solid rgb(0,0,0, 0.5); */
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+	background-color: var(--grey);
+	/* border: .5px solid rgb(0,0,0, 0.5); */
 }
 
 .my-no-data-background {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .offer-listado .my-no-data-background img {
-    width: 70%;
-    height: 70%;
-    margin-bottom: 5px;
+	width: 70%;
+	height: 70%;
+	margin-bottom: 5px;
 }
 
 .disabled {
-    display: none;
+	display: none;
 }
 
 .my-data-offers {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 .my-data-offers-header {
-    background-color: var(--darkblue);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    width: 100%;
-    min-height: 5%;
-    display: flex;
-    flex-direction: row-reverse;
-    padding: 3px;
+	background-color: var(--darkblue);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	width: 100%;
+	min-height: 5%;
+	display: flex;
+	flex-direction: row-reverse;
+	padding: 3px;
 }
 
 .my-data-offers-offer {
-    width: 100%;
-    height: 15%;
-    background-color: white;
-    border-bottom: 1px solid rgb(0,0,0, 0.3);
-    border-left: 1px solid rgb(0,0,0, 0.3);
-    border-right: 1px solid rgb(0,0,0, 0.3);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 5px;
-    justify-content: space-between;
+	width: 100%;
+	height: 15%;
+	background-color: white;
+	border-bottom: 1px solid rgb(0, 0, 0, 0.3);
+	border-left: 1px solid rgb(0, 0, 0, 0.3);
+	border-right: 1px solid rgb(0, 0, 0, 0.3);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 5px;
+	justify-content: space-between;
 }
 
 .my-data-small-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-right: 10px;
 }
 
 .my-data-offers-offer div {
-    height: 100%;
-    /* width: 50%; */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+	height: 100%;
+	/* width: 50%; */
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .my-data-offers-offer-buttons {
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .my-data-offers-green-button {
-    width: 25px;
-    height: 25px;
-    border-radius: 50px;
-    background-color: greenyellow;
-    background-image: url("/img/check-solid.svg");
-    background-repeat: no-repeat;
+	width: 25px;
+	height: 25px;
+	border-radius: 50px;
+	background-color: greenyellow;
+	background-image: url('/img/check-solid.svg');
+	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 60%;
-    cursor: pointer;
-    margin: 0 15px;
+	cursor: pointer;
+	margin: 0 15px;
 }
 
 .my-data-offers-red-button {
-    width: 25px;
-    height: 25px;
-    border-radius: 50px;
-    background-color: red;
-    background-image: url("/img/x-solid.svg");
-    background-repeat: no-repeat;
+	width: 25px;
+	height: 25px;
+	border-radius: 50px;
+	background-color: red;
+	background-image: url('/img/x-solid.svg');
+	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 45%;
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .my-data-offers-scroll-container {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
 }
 
 .be-the-first {
-    background-color: var(--darkblue);
-    color: white;
-    padding: 5px;
-    border-radius: 10px;
-    margin-top: 10px;
-    cursor: pointer;
+	background-color: var(--darkblue);
+	color: white;
+	padding: 5px;
+	border-radius: 10px;
+	margin-top: 10px;
+	cursor: pointer;
 }
 
 .my-data-offers-add-offer {
-    width: 100%;
-    height: 15%;
-    background-color: white;
-    border-bottom: 1px solid rgb(0,0,0, 0.3);
-    border-left: 1px solid rgb(0,0,0, 0.3);
-    border-right: 1px solid rgb(0,0,0, 0.3);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 5px;
-    justify-content: center;
-    cursor: pointer;
+	width: 100%;
+	height: 15%;
+	background-color: white;
+	border-bottom: 1px solid rgb(0, 0, 0, 0.3);
+	border-left: 1px solid rgb(0, 0, 0, 0.3);
+	border-right: 1px solid rgb(0, 0, 0, 0.3);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 5px;
+	justify-content: center;
+	cursor: pointer;
 }
 
 .my-data-offers-form {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 .my-data-offers-form-half {
-    width: 100%;
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	width: 100%;
+	height: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .my-data-offers-form-img {
-    width: 100%;
-    height: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	width: 100%;
+	height: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .my-data-offers-form-img img {
-    width: 80%;
-    height: 80%;
+	width: 80%;
+	height: 80%;
 }
 
 .my-data-offers-form-input {
-    width: 100%;
-    height: 15%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-    margin-bottom: 50px;
+	width: 100%;
+	height: 15%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 30px;
+	margin-bottom: 50px;
 }
 
 .my-data-form-submit {
-    width: 65%;
-    height: 15%;
-    background-color: var(--lightblue);
-    color: white;
-    text-align: center;
-    border: none;
-    border-radius: 10px;
-    font-size: 18px;  
-    cursor: pointer;
-} 
+	width: 65%;
+	height: 15%;
+	background-color: var(--lightblue);
+	color: white;
+	text-align: center;
+	border: none;
+	border-radius: 10px;
+	font-size: 18px;
+	cursor: pointer;
+}
 
 .my-data-offers-header-close {
-    width: 20px;
-    height: 20px;
-    border-radius: 50px;
-    background-color: red;
-    background-image: url("/img/x-solid.svg");
-    background-repeat: no-repeat;
-    background-position: center left 4px;
-    cursor: pointer;
-    background-size: 60%;
+	width: 20px;
+	height: 20px;
+	border-radius: 50px;
+	background-color: red;
+	background-image: url('/img/x-solid.svg');
+	background-repeat: no-repeat;
+	background-position: center left 4px;
+	cursor: pointer;
+	background-size: 60%;
 }
 
 .my-data-offers-form-input .lol {
-    border: none;
-    border-radius: 10px;
-    height: 100%;
-    padding: 10px;
+	border: none;
+	border-radius: 10px;
+	height: 100%;
+	padding: 10px;
+}
+
+/* !! ALL PEDIDOS SECTION !! */
+
+.allPedidos-container {
+	margin-top: 50px;
+	width: 65%;
+	min-height: 600px;
+	border-radius: 20px;
+	background-color: white;
+	padding: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+.allPedidos-wrapper {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	border-radius: 20px;
+	padding: 10px;
+	background-color: #d6dbd8;
+}
+
+.allPedidos-slider {
+	width: 100%;
+	height: 100%;
+	border: 1px solid black;
+	overflow-y: auto;
+	margin: 10px;
+	padding: 20px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.allPedidos-pedido {
+	width: 80%;
+	height: 250px;
+	padding: 10px;
+	background-color: white;
+	border-radius: 20px;
+	margin: 20px 0;
 }
