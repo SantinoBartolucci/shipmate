@@ -1,0 +1,38 @@
+<div class='allPedidos-container'>
+	<div class='allPedidos-wrapper'>
+		<div class='allPedidos-slider'>
+			{{#each pedidos}}
+				<div class='allPedidos-pedido'>
+					<a class="a-cover" href="/productoenoferta/{{id}}">
+						<h1>{{name}}</h1>
+						<div class="allPedidos-from-to-container">
+							<p class="allPedidos-from-to">{{from_place}}</p> 
+							<img src='/img/arrow-right-long-solid.svg' alt='Shopping Online' /> 
+							<p>{{to_place}}</p>
+						</div>
+						<div class="allPedidos-middle-container">
+							<p>Solicitado por {{username}}.</p>
+							<p>{{with_box}}</p>
+						</div>
+						<div class="allPedidos-separado">
+							<p>Donde Comprar: </p>
+							<a href="{{link}}">www.{{hostname}}.com</a>
+						</div>
+						<div class="allPedidos-separado">
+							<p>Precio del Producto:</p> 
+							<p>{{price}}$USD</p>
+						</div>
+						<div class="allPedidos-separado">
+							<p>Recompensa:</p> 
+							<p>{{viajero}}$USD</p>
+						</div>
+						<div class="allPedidos-separado">
+							<p>Cantidad:</p> 
+							<p>{{amount}}</p>
+						</div>
+					</a>
+				</div>
+			{{/each}}
+		</div>
+	</div>
+</div>
