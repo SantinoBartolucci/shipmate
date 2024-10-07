@@ -56,8 +56,9 @@ router.post('/productoenoferta/:id/ofertar', isLoggedIn, async (req, res) => {
 	res.redirect('/productoenoferta/' + product_id);
 });
 
-router.get('/deleteOffer/:id', isLoggedIn, async (req, res) => {
+router.get('/deleteOffer/:productid/:id', isLoggedIn, async (req, res) => {
 	const offer_id = parseInt(req.params.id);
+	const product_id = parseInt(req.params.productid);
 
 	await pool.query('DELETE FROM ofertas WHERE id=?', [offer_id]);
 	res.redirect('/productoenoferta/' + product_id);
@@ -65,7 +66,7 @@ router.get('/deleteOffer/:id', isLoggedIn, async (req, res) => {
 
 router.get('/acceptOffer/:id', isLoggedIn, async (req, res) => {
 	const offer_id = parseInt(req.params.id);
-	console.log(offer_id);
+	// console.log(offer_id);
 
 	const [offersInfo] = await pool.query(
 		'SELECT id_pedido, id_usuario FROM ofertas where id = ? ',
@@ -77,7 +78,7 @@ router.get('/acceptOffer/:id', isLoggedIn, async (req, res) => {
 		offersInfo.id_usuario,
 	]);
 
-	console.log(offersInfo);
+	// console.log(offersInfo);
 	await pool.query('UPDATE pedidos SET enabled = 0 WHERE id = ?', [
 		offersInfo.id_pedido,
 	]);
@@ -86,7 +87,7 @@ router.get('/acceptOffer/:id', isLoggedIn, async (req, res) => {
 		'select name, user_id from pedidos where id = (?) ',
 		[offersInfo.id_pedido]
 	);
-	console.log(productInfo);
+	// console.log(productInfo);
 	let response = await pool.query('INSERT INTO chats (name) VALUES (?)', [
 		productInfo.name,
 	]);

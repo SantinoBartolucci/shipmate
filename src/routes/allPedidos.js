@@ -7,7 +7,7 @@ const pool = require('../database');
 router.get('/allPedidos', isLoggedIn, async (req, res) => {
 	const user = req.user[0];
 
-	const pedidos = await pool.query("SELECT * FROM pedidos WHERE enabled=1");
+	const pedidos = await pool.query("SELECT * FROM pedidos WHERE enabled=1 AND NOT user_id=?", [user.id]);
 	
 	for(let e of pedidos) {
 		e.hostname = getDomainName(e.link);

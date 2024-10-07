@@ -141,7 +141,7 @@ function LoadMessages(chat, ans, users) {
 				: users.sender.profileImageRoute;
 		const username =
 			users.sender.id == id ? users.receiver.username : users.sender.username;
-		console.log(route + username);
+		// console.log(route + username);
 		header[0].innerHTML = `
 			<div>
 				<div>
