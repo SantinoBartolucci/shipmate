@@ -17,6 +17,10 @@ router.get('/productoenoferta/:id', isLoggedIn, async (req, res) => {
 		product_id,
 	]);
 
+    if (enabled.enabled == 0) res.redirect('/chats/' + user.id);
+	res.render('pages/ofertado/index', { user, owner, product, offers });
+});
+
 router.post("/productoenoferta/:id/ofertar", isLoggedIn, async (req, res) => {
     const user = req.user[0];
     const product_id = parseInt(req.params.id);
@@ -31,8 +35,6 @@ router.post("/productoenoferta/:id/ofertar", isLoggedIn, async (req, res) => {
     await pool.query('INSERT INTO `ofertas`(`id_usuario`, `id_pedido`, `total`) VALUES (?, ?, ?)', [user.id, product_id, ofertaTotal]);
     
     res.redirect("/productoenoferta/" + product_id);
-	if (enabled.enabled == 0) res.redirect('/chats/' + user.id);
-	// res.render('pages/ofertado/index', { user, owner, product, offers });
 });
 
 router.post('/productoenoferta/:id/ofertar', isLoggedIn, async (req, res) => {
