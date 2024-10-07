@@ -10,6 +10,7 @@ const pool = require('../database');
 const helper = require('../helpers/bcrypt');
 const { google } = require('../keys');
 const { TodayDate } = require('../helpers/date_related');
+const { IsSqlInjectionAttempt } = require('../helpers/isSQL');
 
 passport.serializeUser((user, done) => {
 	done(null, user.id);
@@ -34,6 +35,7 @@ passport.use(
 		} else {
 			let Name = profile.displayName.split(' ');
 			Name = Name[1] != undefined ? Name[0] + ' ' + Name[1].charAt(0) : Name[0];
+
 			const newUser = {
 				name: Name,
 				mail: profile.email,
@@ -41,6 +43,9 @@ passport.use(
 				creation_date: TodayDate(),
 			};
 
+			if (IsSqlInjectionAttempt(newUser.name) || IsSqlInjectionAttempt(newUser.mail))
+				return done(new Error('Potential SQL injection attempt detected'), null);
+			
 			await pool.query('INSERT INTO usuario (name, mail, password, creation_date) VALUES (?, ?, ?, ?)', [newUser.name, newUser.mail, newUser.password, newUser.creation_date]);
 
 			const user = await pool.query('SELECT id, name FROM usuario WHERE mail=?', [newUser.mail]);

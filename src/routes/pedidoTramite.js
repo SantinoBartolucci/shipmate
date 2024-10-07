@@ -3,6 +3,7 @@ const router = Router();
 
 const { isLoggedIn } = require('../helpers/isLogged');
 const pool = require('../database');
+const { IsSqlInjectionAttempt } = require('../helpers/isSQL');
 
 router.get('/productoenoferta/:id', isLoggedIn,  async (req, res) => {
     const user = req.user[0];
@@ -23,7 +24,10 @@ router.post("/productoenoferta/:id/ofertar", isLoggedIn, async (req, res) => {
     let product = await pool.query("SELECT viajero, total FROM pedidos WHERE id=?", [product_id]);
     let ofertaTotal = product[0].total - product[0].viajero + parseInt(comision);
 
-    await pool.query("INSERT INTO `ofertas`(`id_usuario`, `id_pedido`, `total`) VALUES (?, ?, ?)", [user.id, product_id, ofertaTotal]);
+    if (IsSqlInjectionAttempt(product) || IsSqlInjectionAttempt(ofertaTotal))
+        res.redirect("/");
+
+    await pool.query('INSERT INTO `ofertas`(`id_usuario`, `id_pedido`, `total`) VALUES (?, ?, ?)', [user.id, product_id, ofertaTotal]);
     
     res.redirect("/productoenoferta/" + product_id);
 });

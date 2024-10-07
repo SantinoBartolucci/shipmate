@@ -7,6 +7,7 @@ const helper = require('../helpers/bcrypt');
 const nodeMailer = require('../helpers/nodeMailer');
 const { isLoggedIn, isNotLoggedIn } = require('../helpers/isLogged');
 const { TodayDate } = require('../helpers/date_related');
+const { IsSqlInjectionAttempt } = require('../helpers/isSQL');
 
 router.get('/signup', isNotLoggedIn, (req, res) => {
 	const { name, mail } = req.session;
@@ -30,6 +31,8 @@ router.post('/signup', async (req, res, next) => {
 		req.session.password = null;
 		req.flash('error_msg', 'Las contraseñas no son iguales');
 		res.redirect('/signup');
+	} else if (IsSqlInjectionAttempt(name) || IsSqlInjectionAttempt(password) || IsSqlInjectionAttempt(req.session.mail)) {
+		res.redirect("/signup");
 	} else {
 		res.redirect('/signup/emailconfirmation');
 	}

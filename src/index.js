@@ -65,8 +65,8 @@ app.use((req, res, next) => {
 const server = createServer(app);
 const io = new Server(server);
 const pool = require('./database');
-const { profile } = require('console');
-const { connect } = require('http2');
+
+const { IsSqlInjectionAttempt } = require('./helpers/isSQL');
 
 io.on('connection', (socket) => {
 	console.log('user connected');
@@ -74,11 +74,17 @@ io.on('connection', (socket) => {
 		console.log('user disconnected');
 	});
 	socket.on('chat message', async (msg, user, chatId) => {
+		if (IsSqlInjectionAttempt(msg))
+			return;
+
 		const ans = await pool.query('insert into messages (chat_id, content, sender) values (?,?,?)', [chatId, msg, user]);
 		const username = await pool.query('select name from usuario where id = ?', [user]);
 		io.emit('chat message', msg, user, chatId, username);
 	});
 	socket.on('create chat', async (sender, receiver, chatId) => {
+		if (IsSqlInjectionAttempt(sender) || IsSqlInjectionAttempt(receiver))
+			return;
+
 		const ans = await pool.query('insert into chats (name) values (?)', [sender]);
 		let chat = ans.insertId;
 		if (ans) {
@@ -146,11 +152,6 @@ app.use(require('./routes/allPedidos'));
 
 //Static Files
 app.use(express.static(path.join(__dirname, 'public')));
-
-//Server Initialization
-// app.listen(app.get('port'), () => {
-// 	console.log(`Server on port ${app.get('port')} on http://localhost:${app.get('port')}`);
-// });
 
 server.listen(app.get('port'), () => {
 	console.log(`Server on port ${app.get('port')} on http://localhost:${app.get('port')}`);

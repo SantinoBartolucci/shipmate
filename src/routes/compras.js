@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const router = Router();
 
-const { isLoggedIn } = require('../helpers/isLogged');
 const pool = require('../database');
+const { isLoggedIn } = require('../helpers/isLogged');
+const { IsSqlInjectionAttempt } = require('../helpers/isSQL');
 
 router.get('/comprar', isLoggedIn, (req, res) => {
 	const user = req.user[0];
@@ -23,14 +24,19 @@ router.post('/comprar', async (req, res) => {
 	total = Number.parseFloat(total).toFixed(2);
 	total = Number(total);
 
-	const result = await pool.query(
-		'INSERT INTO pedidos (link, name, price, viajero, service, total, amount, details, from_place, to_place, with_box, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-		[link, name, price, viajero, service, total, amount, details, from, to, with_box, req.user[0].id]
-	);
+	if (IsSqlInjectionAttempt(link) || IsSqlInjectionAttempt(name) || IsSqlInjectionAttempt(details) || IsSqlInjectionAttempt(from) || IsSqlInjectionAttempt(to)) {
+		res.redirect("/comprar")
+	} else {
 
-	req.session.pedidoId = result.insertId;
-
-	res.redirect('/comprar-confirmar');
+		const result = await pool.query(
+			'INSERT INTO pedidos (link, name, price, viajero, service, total, amount, details, from_place, to_place, with_box, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			[link, name, price, viajero, service, total, amount, details, from, to, with_box, req.user[0].id]
+		);
+		
+		req.session.pedidoId = result.insertId;
+		
+		res.redirect('/comprar-confirmar');
+	}
 });
 
 router.get('/comprar-confirmar', isLoggedIn, async (req, res) => {
