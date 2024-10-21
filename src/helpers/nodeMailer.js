@@ -83,7 +83,7 @@ nodeMailer.NotifyAllTravelers = async (place_from, place_to, id, user_id) => {
 	const extractedEmails = people.map(row => row.mail); 
 	const emails = new Set(extractedEmails);
 
-	console.log(emails);
+	//console.log(emails);
 	
 	for (email of emails) {
 		let mailDetails = {
