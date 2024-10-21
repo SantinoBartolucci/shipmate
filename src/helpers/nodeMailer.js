@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const randomString = require('./randomString');
+const pool = require('../database');
 
 const nodeMailer = {};
 
@@ -76,5 +77,32 @@ nodeMailer.SendPasswordRecoveryMail = async (mail, link) => {
 		}
 	});
 };
+
+nodeMailer.NotifyAllTravelers = async (place_from, place_to, id, user_id) => {
+	const people = await pool.query(`select U.mail from (SELECT id, place_from, place_to FROM viajes WHERE place_from = "${place_from}" AND place_to = "${place_to}") VS JOIN (SELECT travel_id, user_id FROM viajando) VO ON VS.id = VO.travel_id JOIN (SELECT id, mail FROM usuario) U ON VO.user_id = U.id WHERE U.id != ${user_id};`);
+	const extractedEmails = people.map(row => row.mail); 
+	const emails = new Set(extractedEmails);
+
+	console.log(emails);
+	
+	for (email of emails) {
+		let mailDetails = {
+			from: 'shipmatemailconfirmation@gmail.com',
+			to: email,
+			subject: 'Importante! Alguien quiere comprar algo en tu viaje',
+			text:
+			`Hola! Te comunicamos que alguien esta queriendo comprar un producto en el mismo trayecto de tu viaje.\nEl producto es http://localhost:3000/productoenoferta/${id}`,
+		};
+
+		mailTransporter.sendMail(mailDetails, function (err, data) {
+			if (err) {
+				console.log('Error Occurs' + err);
+			} else {
+				console.log('Email sent successfully');
+				// console.log(mailDetails);
+			}
+		});
+	}
+}
 
 module.exports = nodeMailer;

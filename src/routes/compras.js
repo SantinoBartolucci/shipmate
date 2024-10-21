@@ -5,6 +5,7 @@ const pool = require('../database');
 const { isLoggedIn } = require('../helpers/isLogged');
 const { IsSqlInjectionAttempt } = require('../helpers/isSQL');
 const { TodayDate } = require('../helpers/date_related');
+const nodeMailer = require('../helpers/nodeMailer');
 
 router.get('/comprar', isLoggedIn, (req, res) => {
 	const user = req.user[0];
@@ -56,6 +57,7 @@ router.get('/comprar-confirmar', isLoggedIn, async (req, res) => {
 });
 
 router.post('/comprar-confirmar', async (req, res) => {
+	const user = req.user[0];
 	const product = req.session.product;
 	req.session.product = null;
 	let today = TodayDate();
@@ -65,9 +67,11 @@ router.post('/comprar-confirmar', async (req, res) => {
 			[product.link, product.name, product.price, product.viajero, product.service, product.total, product.amount, product.details, product.from, product.to, product.Box, 1, req.user[0].id]
 		);
 	await pool.query("CALL IngresarEstadoPedido(?, ?, ?)", [result.insertId, "publicado", today]);
+	
+	nodeMailer.NotifyAllTravelers(product.from, product.to, result.insertId, user.id);
 
 	req.flash('success_msg', 'Pedido registrado correctamente!');
-	res.redirect('/');
+	res.redirect('/mytripsandproducts');
 });
 
 module.exports = router;
