@@ -4,6 +4,7 @@ const router = Router();
 const { isLoggedIn } = require('../helpers/isLogged');
 const pool = require('../database');
 const { IsSqlInjectionAttempt } = require('../helpers/isSQL');
+const { TodayDate } = require('../helpers/date_related');
 
 const { MercadoPagoConfig, Preference, Payment } = require("mercadopago");
 const meli = new MercadoPagoConfig({accessToken: "APP_USR-7396164588534070-101413-216e559d39556bf72373d044a102fc31-2035049805"});
@@ -116,6 +117,9 @@ router.get('/payment/success/:offerId', isLoggedIn, async (req, res) => {
 		productInfo.name,
 	]);
 	const chatId = response.insertId;
+
+	let today = TodayDate();
+	await pool.query("CALL IngresarEstadoPedido(?, ?, ?)", [offersInfo.id_pedido, "en viaje", today]);
 
 	response = await pool.query(
 		'INSERT INTO chat_members (chat_id, user_id) VALUES (?, ?)',

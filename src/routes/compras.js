@@ -4,6 +4,7 @@ const router = Router();
 const pool = require('../database');
 const { isLoggedIn } = require('../helpers/isLogged');
 const { IsSqlInjectionAttempt } = require('../helpers/isSQL');
+const { TodayDate } = require('../helpers/date_related');
 
 router.get('/comprar', isLoggedIn, (req, res) => {
 	const user = req.user[0];
@@ -27,13 +28,21 @@ router.post('/comprar', async (req, res) => {
 	if (IsSqlInjectionAttempt(link) || IsSqlInjectionAttempt(name) || IsSqlInjectionAttempt(details) || IsSqlInjectionAttempt(from) || IsSqlInjectionAttempt(to)) {
 		res.redirect("/comprar")
 	} else {
+		const product = {
+			link: link,
+			name: name,
+			price: price,
+			amount: amount,
+			details: details,
+			from: from,
+			to: to,
+			Box: with_box,
+			viajero: viajero,
+			service: service,
+			total: total,
+		};
 
-		const result = await pool.query(
-			'INSERT INTO pedidos (link, name, price, viajero, service, total, amount, details, from_place, to_place, with_box, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-			[link, name, price, viajero, service, total, amount, details, from, to, with_box, req.user[0].id]
-		);
-		
-		req.session.pedidoId = result.insertId;
+		req.session.product = product;
 		
 		res.redirect('/comprar-confirmar');
 	}
@@ -41,33 +50,21 @@ router.post('/comprar', async (req, res) => {
 
 router.get('/comprar-confirmar', isLoggedIn, async (req, res) => {
 	const user = req.user[0];
-
-	const id = req.session.pedidoId;
-
-	const data = await pool.query('SELECT * from pedidos WHERE id=?', [id]);
-
-	const product = {
-		link: data[0].link,
-		name: data[0].name,
-		price: data[0].price,
-		amount: data[0].amount,
-		details: data[0].details,
-		from: data[0].from_place,
-		to: data[0].to_place,
-		box: data[0].with_box == true ? 'Si' : 'No',
-		viajero: data[0].viajero,
-		service: data[0].service,
-		total: data[0].total,
-	};
+	const product = req.session.product;
 
 	res.render('pages/compras/comprar-confirmar', { user, product });
 });
 
 router.post('/comprar-confirmar', async (req, res) => {
-	const id = req.session.pedidoId;
-	req.session.pedidoId = null;
+	const product = req.session.product;
+	req.session.product = null;
+	let today = TodayDate();
 
-	pool.query('UPDATE pedidos SET enabled=? WHERE id=?', [true, id]);
+	const result = await pool.query(
+			'INSERT INTO pedidos (link, name, price, viajero, service, total, amount, details, from_place, to_place, with_box, enabled, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+			[product.link, product.name, product.price, product.viajero, product.service, product.total, product.amount, product.details, product.from, product.to, product.Box, 1, req.user[0].id]
+		);
+	await pool.query("CALL IngresarEstadoPedido(?, ?, ?)", [result.insertId, "publicado", today]);
 
 	req.flash('success_msg', 'Pedido registrado correctamente!');
 	res.redirect('/');
