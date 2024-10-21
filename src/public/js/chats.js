@@ -67,6 +67,7 @@ socket.on('chat message', (msg, user, chat, username) => {
 });*/
 
 socket.on('load chat', (ans, chat, users) => {
+	//console.log('chat: ' + chat + ' chatid: ' + chatId);
 	if (chat == chatId) {
 		LoadMessages(chat, ans, users);
 	}
@@ -135,6 +136,7 @@ var lastCharged = -1;
 function LoadMessages(chat, ans, users) {
 	var item = 1;
 	if (lastCharged != chat) {
+		messages.innerHTML = '';
 		const route =
 			users.sender.id == id
 				? users.receiver.profileImageRoute
@@ -143,29 +145,30 @@ function LoadMessages(chat, ans, users) {
 			users.sender.id == id ? users.receiver.username : users.sender.username;
 		// console.log(route + username);
 		header[0].innerHTML = `
-			<div>
 				<div>
-					<img src='/img/${route}' alt='' />
-					<h1>${username}</h1>
+					<div>
+						<img src='/img/${route}' alt='' />
+						<h1>${username}</h1>
+					</div>
+					<img class="gear" src='/img/gear-solid.svg' />
 				</div>
-				<img class="gear" src='/img/gear-solid.svg' />
-			</div>
-		`;
-		messages.innerHTML = '';
-		//console.log(lastCharged, chat);
-		for (let i = 0; i < ans.length; i++) {
-			if (ans[i].sender == id) {
-				item = `
-                    <div class='bubble me'>
-                        ${ans[i].content}
-                    </div>`;
-			} else {
-				item = `
-                    <div class='bubble you'>
-                        ${ans[i].content}
-                    </div>`;
+			`;
+		if (ans.length > 0) {
+			//console.log(lastCharged, chat);
+			for (let i = 0; i < ans.length; i++) {
+				if (ans[i].sender == id) {
+					item = `
+						<div class='bubble me'>
+							${ans[i].content}
+						</div>`;
+				} else {
+					item = `
+						<div class='bubble you'>
+							${ans[i].content}
+						</div>`;
+				}
+				messages.insertAdjacentHTML('beforeend', item);
 			}
-			messages.insertAdjacentHTML('beforeend', item);
 		}
 	}
 	lastCharged = chat;
