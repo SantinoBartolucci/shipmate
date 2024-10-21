@@ -70,6 +70,7 @@ router.get('/deleteOffer/:productid/:id', isLoggedIn, async (req, res) => {
 
 router.get('/acceptOffer/:id', isLoggedIn, async (req, res) => {
 	const offer_id = parseInt(req.params.id);
+	// console.log(offer_id + " 1");
 
 	const [offersInfo] = await pool.query(
 		'SELECT id_pedido, id_usuario, total FROM ofertas where id = ? ',
@@ -81,10 +82,10 @@ router.get('/acceptOffer/:id', isLoggedIn, async (req, res) => {
 		[offersInfo.id_pedido]
 	);
 
-	product.total = offersInfo.total * 1000;
+	product.total = offersInfo.total;
 
 	let url = await CreateOrder(product, offer_id);
-
+	// console.log(url);
 	res.redirect(url);
 });
 
