@@ -8,7 +8,7 @@
 				<h1>¡Programa Tus Viajes!</h1>
 				<div class='viajes-input-radio-container'>
 					<label class='left checked'>
-						<input type='radio' name='box' value='ida' checked onclick='ToogleCheckedRadioLabel()' />
+						<input type='radio' name='box' value='ida' checked  onclick='ToogleCheckedRadioLabel()' />
 						Solo Ida
 					</label>
 					<label class='right'>
@@ -17,13 +17,13 @@
 					</label>
 				</div>
 				<div class='viajes-input-container'>
-					<input type='text' name="place_from" placeholder='Desde' />
+					<input required type='text' name="place_from" placeholder='Desde' />
 				</div>
 				<div class='viajes-input-container' id="fechaIdaDiv">
-					<input type='text' name="place_to" placeholder='Hacia' />
+					<input required type='text' name="place_to" placeholder='Hacia' />
 				</div>
 				<div class='viajes-input-container'>
-					<input type='text' name="date_start" placeholder='Fecha de Ida' id="fecha-ida" onfocus="(this.type='date')" onblur="(this.type='text')"/>
+					<input required type='text' name="date_start" placeholder='Fecha de Ida' id="fecha-ida" onfocus="(this.type='date')" onblur="(this.type='text')"/>
 				</div>
 				<input class='viajes-input-submit' type='submit' value='Registrar Viaje' />
 			</form>

@@ -16,6 +16,7 @@ router.get('/productoenoferta/:id', isLoggedIn, async (req, res) => {
 	let offers = await GetOffers(product_id, user.id);
 
 	let owner = product.user_id == user.id ? true : false;
+	product.hostname = getDomainName(product.link);
 
 	let [enabled] = await pool.query('select enabled from pedidos where id = ?', [
 		product_id,
@@ -143,7 +144,7 @@ router.get('/payment/pending', isLoggedIn, (req, res) => {
 
 async function GetProduct(id) {
 	const product = await pool.query(
-		'SELECT id, user_id, name, total, from_place, to_place, details FROM pedidos WHERE id=?',
+		'SELECT id, link, user_id, name, total, from_place, to_place, details FROM pedidos WHERE id=?',
 		[id]
 	);
 
@@ -198,6 +199,15 @@ async function CreateOrder(product, offer_id) {
     });
     
 	return result.init_point;
+}
+
+function getDomainName(url) {
+    const urlObj = new URL(url);
+    const hostname = urlObj.hostname; // Obtiene el hostname
+
+    // Divide el hostname en partes y toma el segundo elemento
+    const parts = hostname.split('.');
+    return parts[1]
 }
 
 module.exports = router;

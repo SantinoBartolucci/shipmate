@@ -22,6 +22,12 @@
                             <p>{{product.details}}</p>
                         </div>
                     </div>
+                    <div class="producto-input-container-two">
+                        <p>Donde Comprar:</p>
+                        <div class="offer-info-white-background" style="padding: 10px;">
+                            <a href="{{product.link}}">www.{{product.hostname}}.com</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="offer-image">
@@ -44,7 +50,7 @@
                                     {{#each offers}}
                                         <div class="my-data-offers-offer">
                                             <div>
-                                                <img class="my-data-small-img" src='/img/profile-pictures/{{id_usuario}}.jpg' alt="">
+                                                <img class="my-data-small-img" src='/img/profile-pictures/{{id_usuario}}.jpg' alt="" onerror="this.onerror=null; this.src='/img/profile-pictures/default.jpg';">
                                                 <h2>Santino B.</h1>
                                             </div>
                                             <div>
@@ -71,7 +77,7 @@
                                     {{#each offers}}
                                         <div class="my-data-offers-offer">
                                             <div>
-                                                <img class="my-data-small-img" src='/img/profile-pictures/{{id_usuario}}.jpg' alt="">
+                                                <img class="my-data-small-img" src='/img/profile-pictures/{{id_usuario}}.jpg' alt="" onerror="this.onerror=null; this.src='/img/profile-pictures/default.jpg';">
                                                 <h2>{{username}}.</h1>
                                             </div>
                                             <div>
