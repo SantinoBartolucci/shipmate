@@ -3,6 +3,22 @@ const router = Router();
 
 const XLSX = require('xlsx');
 const pool = require('../database');
+const { isLoggedIn } = require('../helpers/isLogged');
+
+const query = `
+	SELECT 
+		p.id AS Id_Pedido,
+		p.name AS Producto,
+		p.price AS Precio_Original,
+		ep.estado AS Estado,
+		ep.fecha AS Fecha
+	FROM 
+		(SELECT id, name, price FROM pedidos) p
+	JOIN 
+		(SELECT pedido_id, estado, fecha FROM estado_pedido) ep ON p.id = ep.pedido_id
+	ORDER BY 
+		p.id, ep.fecha;
+`;
 
 router.get('/', (req, res) => {
 	let user = null;
@@ -11,51 +27,7 @@ router.get('/', (req, res) => {
 	res.render('index', { user });
 });
 
-router.get("/lol", (req, res) => {
-	// Hacer la consulta SQL
-	const query = `
-		SELECT 
-    		p.id AS Id_Pedido,
-    		p.name AS Producto,
-    		p.price AS Precio_Original,
-    		o.total AS Precio_Oferta,
-    		ep.estado AS Estado,
-    		ep.fecha AS Fecha
-		FROM 
-    		pedidos p
-		JOIN 
-    		ofertas o ON p.id = o.id_pedido
-		JOIN 
-    		estado_pedido ep ON p.id = ep.pedido_id
-	`;
-
-	/*
-	SELECT 
-    p.id AS Id_Pedido,
-    CASE 
-        WHEN ep.estado = 'publicado' THEN NULL 
-        ELSE o.id 
-    END AS Id_Oferta,
-    p.name AS Producto,
-    p.price AS Precio_Original,
-    CASE 
-        WHEN ep.estado = 'publicado' THEN NULL 
-        ELSE o.total 
-    END AS Precio_Oferta,
-    ep.estado AS Estado,
-    ep.fecha AS Fecha
-FROM 
-    pedidos p
-JOIN 
-    ofertas o ON p.id = o.id_pedido
-JOIN 
-    estado_pedido ep ON p.id = ep.pedido_id
-GROUP BY 
-    p.id, ep.estado
-HAVING 
-    NOT (ep.estado = 'publicado' AND COUNT(*) > 1);
-	*/
-
+router.get('/export-excell-file', isLoggedIn, (req, res) => {
 	pool.query(query, (error, results) => {
 		if (error) {
 			console.error('Error en la consulta: ', error);
@@ -67,14 +39,16 @@ HAVING
 		const workbook = XLSX.utils.book_new();
 		XLSX.utils.book_append_sheet(workbook, worksheet, 'Datos');
 
-		// Guardar el archivo Excel
-		const filePath = './resultado.xlsx';
-		XLSX.writeFile(workbook, filePath);
+		// Generar el archivo Excel en memoria
+		const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'buffer' });
 
-		console.log(`Archivo Excel guardado en: ${filePath}`);
+		// Establecer los encabezados de la respuesta para forzar la descarga
+		res.setHeader('Content-Disposition', 'attachment; filename=Informe.xlsx');
+		res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+		// Enviar el archivo Excel como respuesta
+		res.send(excelBuffer);
 	});
-
-	res.redirect("/");
-})
+});
 
 module.exports = router;

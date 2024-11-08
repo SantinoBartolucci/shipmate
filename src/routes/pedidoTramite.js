@@ -57,6 +57,9 @@ router.post('/productoenoferta/:id/ofertar', isLoggedIn, async (req, res) => {
 		'INSERT INTO `ofertas`(`id_usuario`, `id_pedido`, `total`) VALUES (?, ?, ?)',
 		[user.id, product_id, ofertaTotal]
 	);
+	
+	let today = TodayDate();
+	await pool.query("CALL IngresarEstadoPedido(?, ?, ?)", [product_id, "ofertado", today]);
 
 	res.redirect('/productoenoferta/' + product_id);
 });
