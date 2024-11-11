@@ -79,11 +79,9 @@ nodeMailer.SendPasswordRecoveryMail = async (mail, link) => {
 };
 
 nodeMailer.NotifyAllTravelers = async (place_from, place_to, id, user_id) => {
-	const people = await pool.query(`select U.mail from (SELECT id, place_from, place_to FROM viajes WHERE place_from = "${place_from}" AND place_to = "${place_to}") VS JOIN (SELECT travel_id, user_id FROM viajando) VO ON VS.id = VO.travel_id JOIN (SELECT id, mail FROM usuario) U ON VO.user_id = U.id WHERE U.id != ${user_id};`);
+	const people = await pool.query(`select U.mail from (SELECT id, place_from, place_to FROM viajes WHERE place_from = "${place_to}" AND place_to = "${place_from}") VS JOIN (SELECT travel_id, user_id FROM viajando) VO ON VS.id = VO.travel_id JOIN (SELECT id, mail FROM usuario) U ON VO.user_id = U.id WHERE U.id != ${user_id};`);
 	const extractedEmails = people.map(row => row.mail); 
 	const emails = new Set(extractedEmails);
-
-	//console.log(emails);
 	
 	for (email of emails) {
 		let mailDetails = {
@@ -103,6 +101,30 @@ nodeMailer.NotifyAllTravelers = async (place_from, place_to, id, user_id) => {
 			}
 		});
 	}
-}
+};
+
+nodeMailer.NotifyOwnerOfOffer = async (offer_id) => {
+	const oferta = await pool.query(`SELECT id, id_pedido FROM ofertas WHERE id = ${offer_id}`);
+	const pedido = await pool.query(`SELECT id, user_id FROM pedidos WHERE id=?`, [oferta[0].id_pedido]);
+	const usuario = await pool.query(`SELECT id, mail FROM usuario WHERE id=?`, [pedido[0].user_id]);
+
+	const email = usuario[0].mail;
+
+	let mailDetails = {
+		from: 'shipmatemailconfirmation@gmail.com',
+		to: email,
+		subject: 'Importante!!! Alguien realizó una oferta en tu producto',
+		text:
+		`Hola! Te comunicamos que alguien esta colocó una oferta en uno de tus productos publicados.\nEl producto es http://localhost:3000/productoenoferta/${offer_id}`,
+	};
+
+	mailTransporter.sendMail(mailDetails, function (err, data) {
+		if (err) {
+			console.log('Error Occurs' + err);
+		} else {
+			console.log('Email sent successfully');
+		}
+	});
+};
 
 module.exports = nodeMailer;

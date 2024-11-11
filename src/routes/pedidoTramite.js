@@ -5,6 +5,7 @@ const { isLoggedIn } = require('../helpers/isLogged');
 const pool = require('../database');
 const { IsSqlInjectionAttempt } = require('../helpers/isSQL');
 const { TodayDate } = require('../helpers/date_related');
+const nodeMailer = require('../helpers/nodeMailer');
 
 const { MercadoPagoConfig, Preference, Payment } = require("mercadopago");
 const meli = new MercadoPagoConfig({accessToken: "APP_USR-7396164588534070-101413-216e559d39556bf72373d044a102fc31-2035049805"});
@@ -37,8 +38,9 @@ router.post("/productoenoferta/:id/ofertar", isLoggedIn, async (req, res) => {
     if (IsSqlInjectionAttempt(product) || IsSqlInjectionAttempt(ofertaTotal))
         res.redirect("/");
 
-    await pool.query('INSERT INTO `ofertas`(`id_usuario`, `id_pedido`, `total`) VALUES (?, ?, ?)', [user.id, product_id, ofertaTotal]);
-    
+    const result = await pool.query('INSERT INTO `ofertas`(`id_usuario`, `id_pedido`, `total`) VALUES (?, ?, ?)', [user.id, product_id, ofertaTotal]);
+    await nodeMailer.NotifyOwnerOfOffer(result.insertId);
+
     res.redirect("/productoenoferta/" + product_id);
 });
 
@@ -85,7 +87,7 @@ router.get('/acceptOffer/:id', isLoggedIn, async (req, res) => {
 		[offersInfo.id_pedido]
 	);
 
-	product.total = offersInfo.total * 1000;
+	product.total = offersInfo.total * 1517;
 
 	let url = await CreateOrder(product, offer_id);
 

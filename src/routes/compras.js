@@ -68,7 +68,7 @@ router.post('/comprar-confirmar', async (req, res) => {
 		);
 	await pool.query("CALL IngresarEstadoPedido(?, ?, ?)", [result.insertId, "publicado", today]);
 	
-	nodeMailer.NotifyAllTravelers(product.from, product.to, result.insertId, user.id);
+	await nodeMailer.NotifyAllTravelers(product.from, product.to, result.insertId, user.id);
 
 	req.flash('success_msg', 'Pedido registrado correctamente!');
 	res.redirect('/mytripsandproducts');

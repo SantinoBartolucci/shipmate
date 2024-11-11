@@ -9,7 +9,7 @@ const query = `
 	SELECT 
 		p.id AS Id_Pedido,
 		p.name AS Producto,
-		p.price AS Precio_Original,
+		p.price AS Precio_Original, 
 		ep.estado AS Estado,
 		ep.fecha AS Fecha
 	FROM 

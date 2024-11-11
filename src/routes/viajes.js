@@ -27,7 +27,7 @@ router.post('/viajar', isLoggedIn, async (req, res) => {
 		]);
 		
 		req.flash('success_msg', '¡Viaje registrado correctamente!');
-		res.redirect('/viajar');
+		res.redirect('/mytripsandproducts');
 	}
 });
 
